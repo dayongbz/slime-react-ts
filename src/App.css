@@ -10,12 +10,17 @@ body {
   justify-content: center;
 }
 
+#dot-wrapper {
+  position: relative;
+}
+
 .wrapper{
   display: flex;
   justify-content: space-around;
   align-content: space-around;
   flex-wrap: wrap;
   overflow: hidden;
+  background-color: transparent !important;
 }
 
 .dot {

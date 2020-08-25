@@ -13,16 +13,25 @@ const Dot = memo((props: any) => {
   }
 
   useEffect(() => {
+  }, [])
+
+  useEffect(() => {
     if (dotRef.current) {
-      if (dotRef.current.clientWidth >= 20) {
-        dotRef.current.addEventListener("mouseenter", onMouseEnter, { once: true })
+      const dot = dotRef.current;
+      const x = dot.offsetLeft + dot.offsetWidth / 2, y = dot.offsetTop + dot.offsetHeight / 2;
+      if (props.ctx) {
+        const colorData = props.ctx.getImageData(x, y, 1, 1).data;
+        dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
+      }
+      if (dot.clientWidth >= 20) {
+        dot.addEventListener("mouseenter", onMouseEnter, { once: true })
       }
     }
-  },[props.size])
+  }, [props.size, props.ctx])
   return (
     <div ref={dotRef} className="dot" style={{ width: props.size, height: props.size }}>
       {dots.map((item) => {
-        return <Dot size={props.size / 2} key={item.toString()} />
+        return <Dot size={props.size / 2} key={item.toString()} ctx={props.ctx} />
       })}
     </div>
   )
