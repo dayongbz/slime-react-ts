@@ -1,10 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo, useEffect } from 'react';
 import './reset.css'
 import './App.css';
 import Dot from './components/Dot'
 
-function App() {
+const App = () => {
   const [name, setName] = useState<string>("chaewon");
+  const [initialDotSize, setInitialDotSize] = useState<number>(0);
+  const [screenSize, setScreenSize] = useState<object>({ width: 0, height: 0 })
   const dotWrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -26,17 +28,29 @@ function App() {
       canvas.height = height;
       ctx.drawImage(img, 0, 0, width, height)
       setDotWrapper(width, height);
+      setInitialDotSize(350)
     }
   }
+
+  useEffect(() => {
+    setScreenSize({
+      width: window.innerWidth, height: window.innerHeight
+    })
+    window.addEventListener("resize", () => {
+      setScreenSize({
+        width: window.innerWidth, height: window.innerHeight
+      })
+    })
+  }, [])
   return (
     <div id="main-wrapper">
       <img onLoad={imgOnLoad} alt="chaewon" src={`/img/${name}.jpg`}></img>
       <canvas ref={canvasRef}></canvas>
-      <div ref={dotWrapperRef} id="dot-wrapper">
-        <Dot size={100}/>
+      <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
+        {[1, 2, 3, 4, 5, 6].map(item => <Dot size={initialDotSize} key={item.toString()} />)}
       </div>
     </div>
   );
-}
+};
 
 export default App;

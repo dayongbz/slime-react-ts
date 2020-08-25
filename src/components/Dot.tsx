@@ -1,28 +1,31 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, memo } from 'react'
 
-function Dot(props: any) {
-  const [className, setClassName] = useState<string>("dot");
+const Dot = memo((props: any) => {
+  const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null)
-  const dotsRef = useRef<Array<HTMLDivElement>>(null);
 
   const onMouseEnter = (e: any) => {
     if (dotRef.current && e) {
-      const { clientWidth: size } = e.target;
-      console.dir(size)
-      setClassName("wrapper")
+      dotRef.current.classList.remove("dot");
+      dotRef.current.classList.add("wrapper");
+      setDots([1, 2, 3, 4]);
     }
   }
 
   useEffect(() => {
     if (dotRef.current) {
-      dotRef.current.addEventListener("mouseenter", onMouseEnter, { once: true })
+      if (dotRef.current.clientWidth >= 20) {
+        dotRef.current.addEventListener("mouseenter", onMouseEnter, { once: true })
+      }
     }
-  })
+  },[props.size])
   return (
-    <div ref={dotRef} className={className} style={{ width: props.size, height: props.size }}>
-      {}
+    <div ref={dotRef} className="dot" style={{ width: props.size, height: props.size }}>
+      {dots.map((item) => {
+        return <Dot size={props.size / 2} key={item.toString()} />
+      })}
     </div>
   )
-}
+})
 
 export default Dot
