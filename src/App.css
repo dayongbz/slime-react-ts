@@ -14,7 +14,7 @@ body {
   position: relative;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   justify-content: space-around;
   align-content: space-around;
