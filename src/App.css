@@ -16,10 +16,11 @@ body {
 
 .wrapper {
   display: flex;
-  justify-content: space-around;
-  align-content: space-around;
   flex-wrap: wrap;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
   background-color: transparent !important;
 }
 
@@ -34,4 +35,30 @@ img {
 
 canvas {
   display: none;
+}
+
+#profile-wrapper {
+  margin-top: 25px;
+}
+
+.profile {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  cursor: pointer;
+  filter: brightness(0.8);
+  transition: background-size 0.3s, filter 0.3s;
+}
+
+.profile,
+.selected {
+  filter: brightness(0.8);
+}
+
+.profile:hover {
+  background-size: 125%;
+  filter: brightness(1);
 }

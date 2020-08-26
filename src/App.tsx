@@ -2,6 +2,7 @@ import React, { useState, useRef, memo, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
+import Profile from "./components/Profile";
 
 const App = memo(() => {
   const [name, setName] = useState<string>("chaewon");
@@ -69,6 +70,9 @@ const App = memo(() => {
         {[1, 2, 3, 4, 5, 6].map((item) => (
           <Dot size={initialDotSize} ctx={ctxState} key={item.toString()} />
         ))}
+      </div>
+      <div id="profile-wrapper">
+        <Profile name={name} />
       </div>
     </div>
   );
