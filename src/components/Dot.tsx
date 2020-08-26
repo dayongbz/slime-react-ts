@@ -5,6 +5,7 @@ const Dot = memo((props: any) => {
   const dotRef = useRef<HTMLDivElement>(null);
 
   const onMouseEnter = (e: any) => {
+    // element what has dot class remove dot class then add wrapper class
     if (dotRef.current && e) {
       dotRef.current.classList.remove("dot");
       dotRef.current.classList.add("wrapper");
@@ -12,9 +13,8 @@ const Dot = memo((props: any) => {
     }
   };
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
+    // init dot setting
     if (dotRef.current) {
       const dot = dotRef.current;
       let x = dot.offsetLeft + dot.offsetWidth / 2,

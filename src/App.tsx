@@ -3,7 +3,7 @@ import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
 
-const App = () => {
+const App = memo(() => {
   const [name, setName] = useState<string>("chaewon");
   const [initialDotSize, setInitialDotSize] = useState<number>(0);
   const [screenSize, setScreenSize] = useState<object>({ width: 0, height: 0 });
@@ -12,6 +12,7 @@ const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const setDotWrapper = (imgWidth: number, imgHeight: number) => {
+    // set dot-wrapper size
     if (dotWrapperRef.current) {
       const dotWrapper = dotWrapperRef.current as HTMLDivElement;
       dotWrapper.style.width = `${imgWidth}px`;
@@ -20,6 +21,7 @@ const App = () => {
   };
 
   const setCanvas = (
+    // set canvas size and draw image and return ctx
     canvas: HTMLCanvasElement,
     img: HTMLImageElement,
     width: number,
@@ -34,6 +36,7 @@ const App = () => {
   };
 
   const imgOnLoad = (e: any) => {
+    // when img is loaded, init system
     if (canvasRef.current && e.target) {
       const canvas = canvasRef.current as HTMLCanvasElement;
       const img = e.target as HTMLImageElement;
@@ -45,6 +48,7 @@ const App = () => {
   };
 
   useEffect(() => {
+    // when document is loaded, set screenSize state at once
     setScreenSize({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -68,6 +72,6 @@ const App = () => {
       </div>
     </div>
   );
-};
+});
 
 export default App;
