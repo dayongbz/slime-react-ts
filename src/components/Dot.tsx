@@ -17,7 +17,7 @@ const Dot = memo((props: any) => {
   useEffect(() => {
     if (dotRef.current) {
       const dot = dotRef.current;
-      const x = dot.offsetLeft + dot.offsetWidth / 2,
+      let x = dot.offsetLeft + dot.offsetWidth / 2,
         y = dot.offsetTop + dot.offsetHeight / 2;
       if (props.ctx) {
         const colorData = props.ctx.getImageData(x, y, 1, 1).data;

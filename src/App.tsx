@@ -19,16 +19,26 @@ const App = () => {
     }
   };
 
+  const setCanvas = (
+    canvas: HTMLCanvasElement,
+    img: HTMLImageElement,
+    width: number,
+    height: number
+  ): CanvasRenderingContext2D => {
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    canvas.width = width;
+    canvas.height = height;
+    setCtxState(ctx);
+    ctx.drawImage(img, 0, 0, width, height);
+    return ctx;
+  };
+
   const imgOnLoad = (e: any) => {
     if (canvasRef.current && e.target) {
       const canvas = canvasRef.current as HTMLCanvasElement;
-      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-      setCtxState(ctx);
       const img = e.target as HTMLImageElement;
       const { width, height } = img;
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
+      setCanvas(canvas, img, width, height);
       setDotWrapper(width, height);
       setInitialDotSize(350);
     }
