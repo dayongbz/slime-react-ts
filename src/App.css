@@ -39,16 +39,26 @@ canvas {
 
 #profile-wrapper {
   width: 100vw;
+  height: 125px;
   position: fixed;
   bottom: 0;
-  display: flex;
-  padding: 25px;
-  flex-wrap: wrap;
-  justify-content: space-around;
   background-color: #222;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#profile-slide {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 125px;
+  transition: transform 0.3s;
 }
 
 .profile {
+  display: inline-block;
+  margin: 25px;
   width: 75px;
   height: 75px;
   border-radius: 100%;

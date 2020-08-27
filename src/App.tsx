@@ -2,6 +2,7 @@ import React, { useState, useRef, memo, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
+import DotWrapper from "./components/DotWrapper";
 import CanvasWrapper from "./components/CanvasWrapper";
 import ProfileWrapper from "./components/ProfileWrapper";
 
@@ -108,6 +109,7 @@ const App = memo(() => {
           ref={imgRef}
         ></img>
         <canvas ref={canvasRef}></canvas>
+        {/* <DotWrapper ref={dotWrapperRef}></DotWrapper> */}
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
           {initialDots.map((item) => (
             <Dot

@@ -4,6 +4,14 @@ const Dot = memo(({ ctx, size, name }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
+  const getXY = (el: HTMLDivElement) => {
+    let x = el.offsetLeft + el.offsetWidth / 2,
+      y = el.offsetTop + el.offsetHeight / 2;
+
+    x = x < 0 ? 0 : x;
+    y = y < 0 ? 0 : y;
+  };
+
   const onMouseEnter = (e: any) => {
     // element what has dot class remove dot class then add wrapper class
     if (dotRef.current && e) {
