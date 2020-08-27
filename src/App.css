@@ -43,14 +43,17 @@ canvas {
   bottom: 0;
   display: flex;
   padding: 25px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #222;
 }
 
 .profile {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   border-radius: 100%;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
   cursor: pointer;
   filter: brightness(0.5);
@@ -62,6 +65,5 @@ canvas {
 }
 
 .profile:hover {
-  background-size: 125%;
   filter: brightness(1);
 }
