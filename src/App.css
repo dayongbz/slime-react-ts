@@ -38,24 +38,27 @@ canvas {
 }
 
 #profile-wrapper {
-  margin-top: 25px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  padding: 25px;
 }
 
 .profile {
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   border-radius: 100%;
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
   cursor: pointer;
-  filter: brightness(0.8);
+  filter: brightness(0.5);
   transition: background-size 0.3s, filter 0.3s;
 }
 
-.profile,
-.selected {
-  filter: brightness(0.8);
+.profile.selected {
+  filter: brightness(1);
 }
 
 .profile:hover {
