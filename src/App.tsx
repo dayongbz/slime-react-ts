@@ -68,7 +68,10 @@ const App = memo(() => {
         ctxState={ctxState}
         setCtxState={setCtxState}
       />
-      <div id="main-wrapper">
+      <div
+        id="main-wrapper"
+        style={{ height: `${window.innerHeight - 125}px` }}
+      >
         {/* <DotWrapper ref={dotWrapperRef}></DotWrapper> */}
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
           {initialDots.map((item) => (

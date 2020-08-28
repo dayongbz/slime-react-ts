@@ -1,13 +1,22 @@
 body {
-  background-color: #2d3436;
+  background-color: #fff;
 }
 
 #root {
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+#main-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2d3436;
 }
 
 #dot-wrapper {
@@ -38,10 +47,9 @@ canvas {
 }
 
 #profile-wrapper {
+  position: relative;
   width: 100vw;
   height: 125px;
-  position: fixed;
-  bottom: 0;
   background-color: #222;
   overflow-x: auto;
   overflow-y: hidden;

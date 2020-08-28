@@ -3,13 +3,17 @@ const getWidthHeight = (img: HTMLImageElement, screenSize: any) => {
   let [maxWidth, maxHeight] = screenSize;
   const profileHeight = 125;
   const padding = 10;
+  const result: any = { width: 0, height: 0 };
   maxWidth = maxWidth - padding * 2;
   maxHeight = maxHeight - padding * 2 - profileHeight;
   if (width >= height) {
-    return { width: maxWidth, height: (height * maxWidth) / width };
+    result.width = maxWidth;
+    result.height = height * (maxWidth / width);
   } else {
-    return { width: (width * maxHeight) / height, height: maxHeight };
+    result.width = (maxHeight / height) * width;
+    result.height = maxHeight;
   }
+  return result;
 };
 
 export default getWidthHeight;
