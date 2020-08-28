@@ -10,7 +10,7 @@ const App = memo(() => {
   const [initialDotSize, setInitialDotSize] = useState<number>(0);
   const [initialDots, setInitialDots] = useState<Array<number>>([]);
   const [screenSize, setScreenSize] = useState<Array<number>>([0, 0]);
-  const [ctxState, setCtxState] = useState<object>({});
+  const [ctxState, setCtxState] = useState<any>({});
   const memberRef = useRef<Array<string>>([
     "kwoneunbi",
     "sakura",
@@ -57,22 +57,21 @@ const App = memo(() => {
   };
 
   const settingInit = () => {
-    if (canvasRef.current && imgRef.current) {
-      const img = imgRef.current as HTMLImageElement;
+    if (ctxState[name]) {
+      const img = ctxState[name].img;
       const size = getWidthHeight(img);
       setDotWrapper(size.width, size.height);
       setInitialDotSize(350);
     }
   };
 
-  const imgOnLoad = () => {
-    // when img is loaded, init system
-    settingInit();
-  };
-
   const onReSize = () => {
     setScreenSize([window.innerWidth, window.innerHeight]);
   };
+
+  useEffect(() => {
+    settingInit();
+  }, [name, ctxState]);
 
   useEffect(() => {
     // when document is loaded, set screenSize state at once
@@ -88,13 +87,6 @@ const App = memo(() => {
         setCtxState={setCtxState}
       />
       <div id="main-wrapper">
-        <img
-          onLoad={imgOnLoad}
-          alt={name}
-          src={`./img/${name}.jpg`}
-          ref={imgRef}
-        ></img>
-        <canvas ref={canvasRef}></canvas>
         {/* <DotWrapper ref={dotWrapperRef}></DotWrapper> */}
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
           {initialDots.map((item) => (

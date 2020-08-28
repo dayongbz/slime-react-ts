@@ -40,7 +40,7 @@ const CanvasImg = memo(({ name, screenSize, ctxState, setCtxState }: any) => {
       const img = e.target;
       const size = getWidthHeight(img);
       const ctx = setCanvas(canvas, img, size.width, size.height);
-      setCtxState({ ...ctxState, [name]: ctx });
+      setCtxState({ ...ctxState, [name]: { ctx, img } });
     }
   };
 
