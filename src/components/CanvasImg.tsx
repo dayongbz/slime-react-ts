@@ -1,24 +1,8 @@
 import React, { memo, useRef } from "react";
+import getWidthHeight from "../tools/getWidthHeight";
 
 const CanvasImg = memo(({ name, screenSize, ctxState, setCtxState }: any) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const getWidthHeight = (img: HTMLImageElement) => {
-    let { width, height } = img;
-    if (width < height) {
-      if (width > screenSize[0] * 0.8) {
-        height = (height / width) * screenSize[0] * 0.8;
-        width = screenSize[0] * 0.8;
-      }
-      // if (height > screenSize[1] * 0.5) {
-      //   width = (width / height) * screenSize[1] * 0.5;
-      //   height = screenSize[1] * 0.5;
-      // }
-    } else if (width > height) {
-    }
-
-    return { width, height };
-  };
 
   const setCanvas = (
     // set canvas size and draw image and return ctx
@@ -38,7 +22,7 @@ const CanvasImg = memo(({ name, screenSize, ctxState, setCtxState }: any) => {
     if (canvasRef.current && e.target) {
       const canvas = canvasRef.current as HTMLCanvasElement;
       const img = e.target;
-      const size = getWidthHeight(img);
+      const size = getWidthHeight(img, screenSize);
       const ctx = setCanvas(canvas, img, size.width, size.height);
       setCtxState({ ...ctxState, [name]: { ctx, img } });
     }
