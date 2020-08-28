@@ -1,7 +1,7 @@
 import React, { memo, useRef } from "react";
 import getWidthHeight from "../tools/getWidthHeight";
 
-const CanvasImg = memo(({ name, screenSize, ctxState, setCtxState }: any) => {
+const CanvasImg = memo(({ name, screenSize, dispatch }: any) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const setCanvas = (
@@ -24,7 +24,7 @@ const CanvasImg = memo(({ name, screenSize, ctxState, setCtxState }: any) => {
       const img = e.target;
       const size = getWidthHeight(img, screenSize);
       const ctx = setCanvas(canvas, img, size.width, size.height);
-      setCtxState({ ...ctxState, [name]: { ctx, img } });
+      dispatch({ type: "SET_IMG_CTX", name, ctx, img });
     }
   };
 

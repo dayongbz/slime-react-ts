@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 
-const Profile = memo(({ name, setName, select }: any) => {
+const Profile = memo(({ name, dispatch, select }: any) => {
   const onClick = (e: any) => {
-    setName(name);
+    dispatch({ type: "SET_NAME", name });
   };
   return (
     <div

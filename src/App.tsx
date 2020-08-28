@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo, useEffect, useCallback } from "react";
+import React, { useRef, memo, useEffect, useCallback, useReducer } from "react";
 import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
@@ -6,12 +6,39 @@ import CanvasImgWrapper from "./components/CanvasImgWrapper";
 import ProfileWrapper from "./components/ProfileWrapper";
 import getWidthHeight from "./tools/getWidthHeight";
 
+const initialState = {
+  name: "kimchaewon",
+  imgCtx: {},
+  dotSize: 0,
+  screenSize: [0, 0],
+  initDotsCount: [],
+};
+
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "SET_NAME":
+      return { ...state, name: action.name };
+    case "SET_IMG_CTX":
+      return {
+        ...state,
+        imgCtx: {
+          ...state.imgCtx,
+          [action.name]: { ctx: action.ctx, img: action.img },
+        },
+      };
+    case "SET_DOT_SIZE":
+      return { ...state, dotSize: action.dotSize };
+    case "SET_SCREEN_SIZE":
+      return { ...state, screenSize: [...action.size] };
+    case "SET_INIT_DOTS_COUNT":
+      return { ...state, initDotsCount: [...action.initDotsCount] };
+    default:
+      return state;
+  }
+};
+
 const App = memo(() => {
-  const [name, setName] = useState<string>("kimchaewon");
-  const [initialDotSize, setInitialDotSize] = useState<number>(0);
-  const [initialDots, setInitialDots] = useState<Array<number>>([]);
-  const [screenSize, setScreenSize] = useState<Array<number>>([0, 0]);
-  const [ctxState, setCtxState] = useState<any>({});
+  const [state, dispatch] = useReducer(reducer, initialState);
   const memberRef = useRef<Array<string>>([
     "kwoneunbi",
     "sakura",
@@ -34,26 +61,35 @@ const App = memo(() => {
       const dotWrapper = dotWrapperRef.current as HTMLDivElement;
       dotWrapper.style.width = `${imgWidth}px`;
       dotWrapper.style.height = `${imgHeight}px`;
-      setInitialDots([1, 2, 3, 4, 5, 6]);
+      dispatch({
+        type: "SET_INIT_DOTS_COUNT",
+        initDotsCount: [1, 2, 3, 4, 5, 6],
+      });
     }
   };
 
   const settingInit = useCallback(() => {
-    if (ctxState[name]) {
-      const img = ctxState[name].img;
-      const size = getWidthHeight(img, screenSize);
+    if (state.imgCtx[state.name]) {
+      const img = state.imgCtx[state.name].img;
+      const size = getWidthHeight(img, state.screenSize);
       setDotWrapper(size.width, size.height);
-      setInitialDotSize(350);
+      dispatch({
+        type: "SET_DOT_SIZE",
+        dotSize: 350,
+      });
     }
-  }, [name, ctxState, screenSize]);
+  }, [state.imgCtx, state.name, state.screenSize]);
 
   const onReSize = () => {
-    setScreenSize([window.innerWidth, window.innerHeight]);
+    dispatch({
+      type: "SET_SCREEN_SIZE",
+      size: [window.innerWidth, window.innerHeight],
+    });
   };
 
   useEffect(() => {
     settingInit();
-  }, [name, ctxState, settingInit]);
+  }, [settingInit]);
 
   useEffect(() => {
     // when document is loaded, set screenSize state at once
@@ -64,9 +100,8 @@ const App = memo(() => {
     <>
       <CanvasImgWrapper
         member={memberRef.current}
-        screenSize={screenSize}
-        ctxState={ctxState}
-        setCtxState={setCtxState}
+        screenSize={state.screenSize}
+        dispatch={dispatch}
       />
       <div
         id="main-wrapper"
@@ -74,20 +109,20 @@ const App = memo(() => {
       >
         {/* <DotWrapper ref={dotWrapperRef}></DotWrapper> */}
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
-          {initialDots.map((item) => (
+          {state.initDotsCount.map((item: any) => (
             <Dot
-              size={initialDotSize}
-              ctx={ctxState}
+              size={state.dotSize}
+              ctx={state.imgCtx}
               key={item.toString()}
-              name={name}
+              name={state.name}
             />
           ))}
         </div>
       </div>
       <ProfileWrapper
         member={memberRef.current}
-        setName={setName}
-        name={name}
+        dispatch={dispatch}
+        name={state.name}
       ></ProfileWrapper>
     </>
   );

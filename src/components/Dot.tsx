@@ -25,7 +25,7 @@ const Dot = memo(({ ctx, size, name }: any) => {
         dot.addEventListener("mouseenter", onMouseEnter, { once: true });
       }
     }
-  }, [size, ctx, name]);
+  }, [ctx, name]);
   return (
     <div ref={dotRef} className="dot" style={{ width: size, height: size }}>
       {dots.map((item) => {
