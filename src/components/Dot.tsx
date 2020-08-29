@@ -23,7 +23,6 @@ const Dot = memo(({ ctx, size, name }: any) => {
       const colorData = ctx.getImageData(x, y, 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx, name]);
 
   useEffect(() => {
