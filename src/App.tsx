@@ -85,6 +85,7 @@ const App = memo(() => {
         dotSize: 350,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.imgCtx[state.name], state.name, state.screenSize]);
 
   useEffect(() => {
@@ -107,7 +108,7 @@ const App = memo(() => {
           {state.initDotsCount.map((item: any) => (
             <Dot
               size={state.dotSize}
-              ctx={state.imgCtx}
+              ctx={state.imgCtx[state.name].ctx}
               key={item.toString()}
               name={state.name}
             />

@@ -15,15 +15,16 @@ const Dot = memo(({ ctx, size, name }: any) => {
 
   useEffect(() => {
     // init dot setting
-    if (dotRef.current && ctx[name]) {
-      console.log(ctx[name]);
+    if (dotRef.current && ctx) {
+      console.log(ctx);
       const dot = dotRef.current;
       let x = dot.offsetLeft + dot.offsetWidth / 2,
         y = dot.offsetTop + dot.offsetHeight / 2;
-      const colorData = ctx[name].ctx.getImageData(x, y, 1, 1).data;
+      const colorData = ctx.getImageData(x, y, 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
     }
-  }, [ctx[name], name]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctx, name]);
 
   useEffect(() => {
     if (dotRef.current && dotRef.current.clientWidth >= 10) {
