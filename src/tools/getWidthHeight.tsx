@@ -1,4 +1,4 @@
-const getWidthHeight = (img: HTMLImageElement, screenSize: any) => {
+const getWidthHeight = (img: HTMLImageElement, screenSize: any): any => {
   let { width, height } = img;
   let [maxWidth, maxHeight] = screenSize;
   const profileHeight = 125;

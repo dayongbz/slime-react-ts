@@ -6,7 +6,7 @@ const Dot = memo(({ ctx, size, name }: any) => {
 
   const onMouseEnter = (e: any) => {
     // element what has dot class remove dot class then add wrapper class
-    if (dotRef.current && e) {
+    if (dotRef.current) {
       dotRef.current.classList.remove("dot");
       dotRef.current.classList.add("wrapper");
       setDots([1, 2, 3, 4]);
@@ -16,16 +16,22 @@ const Dot = memo(({ ctx, size, name }: any) => {
   useEffect(() => {
     // init dot setting
     if (dotRef.current && ctx[name]) {
+      console.log(ctx[name]);
       const dot = dotRef.current;
       let x = dot.offsetLeft + dot.offsetWidth / 2,
         y = dot.offsetTop + dot.offsetHeight / 2;
       const colorData = ctx[name].ctx.getImageData(x, y, 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
-      if (dot.clientWidth >= 10) {
-        dot.addEventListener("mouseenter", onMouseEnter, { once: true });
-      }
     }
-  }, [ctx, name]);
+  }, [ctx[name], name]);
+
+  useEffect(() => {
+    if (dotRef.current && dotRef.current.clientWidth >= 10) {
+      dotRef.current.addEventListener("mouseenter", onMouseEnter, {
+        once: true,
+      });
+    }
+  }, []);
   return (
     <div ref={dotRef} className="dot" style={{ width: size, height: size }}>
       {dots.map((item) => {

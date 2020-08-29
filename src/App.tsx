@@ -1,4 +1,4 @@
-import React, { useRef, memo, useEffect, useCallback, useReducer } from "react";
+import React, { useRef, memo, useEffect, useReducer } from "react";
 import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
@@ -68,7 +68,14 @@ const App = memo(() => {
     }
   };
 
-  const settingInit = useCallback(() => {
+  const onReSize = () => {
+    dispatch({
+      type: "SET_SCREEN_SIZE",
+      size: [window.innerWidth, window.innerHeight],
+    });
+  };
+
+  useEffect(() => {
     if (state.imgCtx[state.name]) {
       const img = state.imgCtx[state.name].img;
       const size = getWidthHeight(img, state.screenSize);
@@ -78,18 +85,7 @@ const App = memo(() => {
         dotSize: 350,
       });
     }
-  }, [state.imgCtx, state.name, state.screenSize]);
-
-  const onReSize = () => {
-    dispatch({
-      type: "SET_SCREEN_SIZE",
-      size: [window.innerWidth, window.innerHeight],
-    });
-  };
-
-  useEffect(() => {
-    settingInit();
-  }, [settingInit]);
+  }, [state.imgCtx[state.name], state.name, state.screenSize]);
 
   useEffect(() => {
     // when document is loaded, set screenSize state at once
@@ -107,7 +103,6 @@ const App = memo(() => {
         id="main-wrapper"
         style={{ height: `${window.innerHeight - 125}px` }}
       >
-        {/* <DotWrapper ref={dotWrapperRef}></DotWrapper> */}
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
           {state.initDotsCount.map((item: any) => (
             <Dot
