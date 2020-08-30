@@ -82,7 +82,7 @@ const App = memo(() => {
       setDotWrapper(size.width, size.height);
       dispatch({
         type: "SET_DOT_SIZE",
-        dotSize: 350,
+        dotSize: 278,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,6 +93,7 @@ const App = memo(() => {
     onReSize();
     window.addEventListener("resize", onReSize);
   }, []);
+
   return (
     <>
       <CanvasImgWrapper
