@@ -1,14 +1,20 @@
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 html {
   overflow: hidden;
 }
 body {
   overflow: hidden;
-  /* background-color: #2d3436; */
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
 }
 
 #root {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 #main-wrapper {
@@ -85,4 +91,58 @@ canvas {
 
 .profile:hover {
   filter: brightness(1);
+}
+
+#modal-popup-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-popup {
+  position: relative;
+  z-index: 99;
+  color: #333;
+  background-color: #ecf0f1;
+  min-width: 50%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.modal-popup .title-wrapper {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background-color: #e74c3c;
+  padding: 10px 25px;
+}
+.modal-popup .description-wrapper {
+  padding: 25px;
+}
+
+.modal-popup .button-wrapper {
+  border-top: 1px solid rgb(214, 214, 214);
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px 10px;
+}
+
+input[type="button"] {
+  font-size: 0.9rem;
+  border: none;
+  padding: 0 5px;
+  color: #666;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  color: #c0392b;
+  font-weight: bold;
 }

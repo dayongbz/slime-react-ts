@@ -6,6 +6,7 @@ import CanvasImgWrapper from "./components/CanvasImgWrapper";
 import ProfileWrapper from "./components/ProfileWrapper";
 import getWidthHeight from "./tools/getWidthHeight";
 import getDotsCount from "./tools/getDotsCount";
+import ModalPopup from "./components/ModalPopup";
 
 const initialState = {
   name: "kimchaewon",
@@ -14,6 +15,7 @@ const initialState = {
   screenSize: [0, 0],
   dotWrapperSize: [0, 0],
   initDotsCount: [],
+  modalPopup: [],
 };
 
 const reducer = (state: any, action: any) => {
@@ -36,6 +38,16 @@ const reducer = (state: any, action: any) => {
       return { ...state, dotWrapperSize: [...action.size] };
     case "SET_INIT_DOTS_COUNT":
       return { ...state, initDotsCount: [...action.initDotsCount] };
+    case "SET_MODAL_POPUP":
+      return {
+        ...state,
+        modalPopup: [...state.modalPopup, { ...action.modalPopup }],
+      };
+    case "CANCEL_MODAL_POPUP":
+      return {
+        ...state,
+        modalPopup: [...state.modalPopup.slice(1)],
+      };
     default:
       return state;
   }
@@ -155,7 +167,17 @@ const App = memo(() => {
         member={memberRef.current}
         dispatch={dispatch}
         name={state.name}
-      ></ProfileWrapper>
+      />
+      {state.modalPopup
+        ? state.modalPopup.map((item: any) => (
+            <ModalPopup
+              title={item.title}
+              description={item.description}
+              dispatch={dispatch}
+            />
+          ))
+        : null}
+      {/* <ModalPopup title={"경고"} description={"hello"} /> */}
     </>
   );
 });
