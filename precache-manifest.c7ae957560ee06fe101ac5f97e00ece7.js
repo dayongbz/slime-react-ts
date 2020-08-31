@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e9bdd59d57f6607d00e14bb722dd4e79",
+    "revision": "1fc7c59f99c59b54ac3f94791cce449c",
     "url": "/slime-react-ts/index.html"
   },
   {
