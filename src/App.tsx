@@ -58,7 +58,7 @@ const App = memo(() => {
     "jangwonyoung",
   ]);
   const dotWrapperRef = useRef<HTMLDivElement>(null);
-  const eventRef = useRef<Event>(new Event("division"));
+  const eventRef = useRef<Event>(new CustomEvent("division"));
 
   const setDotWrapper = (imgWidth: number, imgHeight: number) => {
     // set dot-wrapper size
@@ -138,7 +138,7 @@ const App = memo(() => {
         id="main-wrapper"
         style={{ height: `${document.documentElement.clientHeight - 125}px` }}
       >
-        <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
+        <div ref={dotWrapperRef} id="dot-wrapper">
           {state.initDotsCount.map((item: any) => (
             <Dot
               size={state.dotSize}

@@ -20,6 +20,9 @@ body {
 }
 
 #dot-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
   position: relative;
 }
 
@@ -35,7 +38,6 @@ body {
 
 .dot {
   border-radius: 100%;
-  background-color: white;
 }
 
 img {

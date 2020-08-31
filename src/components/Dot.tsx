@@ -4,15 +4,23 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
-  const onMouseEnter = (e: any) => {
+  const onMouseEnter = () => {
     // element what has dot class remove dot class then add wrapper class
-    const target = dotRef.current;
-    if (target && target.clientWidth >= 10) {
+    if (dotRef.current && dotRef.current.clientWidth >= 10) {
       if (dotRef.current) {
         dotRef.current.classList.remove("dot");
         dotRef.current.classList.add("wrapper");
         setDots([1, 2, 3, 4]);
       }
+    }
+  };
+
+  const onTouchMove = () => {
+    const target = dotRef.current;
+    if (target?.classList.contains("dot") && target.clientWidth >= 10) {
+      target.classList.remove("dot");
+      target.classList.add("wrapper");
+      setDots([1, 2, 3, 4]);
     }
   };
 
@@ -31,17 +39,8 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
 
   useEffect(() => {
     const target = dotRef.current;
-    target?.addEventListener(
-      "division",
-      () => {
-        if (target?.classList.contains("dot") && target.clientWidth >= 10) {
-          target.classList.remove("dot");
-          target.classList.add("wrapper");
-          setDots([1, 2, 3, 4]);
-        }
-      },
-      { once: true }
-    );
+    target?.addEventListener("mouseenter", onMouseEnter, { once: true });
+    target?.addEventListener("division", onTouchMove, { once: true });
   }, []);
 
   return (
@@ -49,7 +48,7 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
       ref={dotRef}
       className="dot"
       style={{ width: size, height: size }}
-      onMouseEnter={onMouseEnter}
+      // onMouseEnter={onMouseEnter}
     >
       {dots.map((item) => {
         return (
