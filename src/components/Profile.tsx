@@ -8,19 +8,22 @@ const Profile = memo(({ name, dispatch, select }: any) => {
         modalPopup: {
           title: "경고",
           description: "지금까지 작업한 내용들이 초기화됩니다.",
-          function: dispatch,
-          args: {
-            type: "SET_INIT_DOTS_COUNT",
-            initDotsCount: [],
-          },
+          functions: [dispatch, dispatch],
+          args: [
+            {
+              type: "SET_INIT_DOTS_COUNT",
+              initDotsCount: [],
+            },
+            { type: "SET_NAME", name },
+          ],
         },
       });
       // dispatch({
       //   type: "SET_INIT_DOTS_COUNT",
       //   initDotsCount: [],
       // });
+      // dispatch({ type: "SET_NAME", name });
     }
-    dispatch({ type: "SET_NAME", name });
   };
   return (
     <>

@@ -48,6 +48,16 @@ const reducer = (state: any, action: any) => {
         ...state,
         modalPopup: [...state.modalPopup.slice(1)],
       };
+    case "OK_MODAL_POPUP":
+      for (let i = 0; i < state.modalPopup[0].functions.length; i++) {
+        state.modalPopup[0].functions[i](state.modalPopup[0].args[i]);
+      }
+
+      return {
+        ...state,
+        modalPopup: [...state.modalPopup.slice(1)],
+      };
+
     default:
       return state;
   }
@@ -169,11 +179,12 @@ const App = memo(() => {
         name={state.name}
       />
       {state.modalPopup
-        ? state.modalPopup.map((item: any) => (
+        ? state.modalPopup.map((item: any, index: any) => (
             <ModalPopup
               title={item.title}
               description={item.description}
               dispatch={dispatch}
+              key={item.title + index}
             />
           ))
         : null}
