@@ -22,8 +22,8 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
       const dot = dotRef.current;
       let x = dot.offsetLeft + dot.offsetWidth / 2,
         y = dot.offsetTop + dot.offsetHeight / 2;
-      x = x < 0 ? 0 : x > wrapperSize[0] ? wrapperSize[0] - 1 : x;
-      y = y < 0 ? 0 : y > wrapperSize[1] ? wrapperSize[1] - 1 : y;
+      x = x < 0 ? 0 : x >= wrapperSize[0] ? wrapperSize[0] - 1 : x;
+      y = y < 0 ? 0 : y >= wrapperSize[1] ? wrapperSize[1] - 1 : y;
       const colorData = ctx.getImageData(x, y, 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
     }
@@ -35,7 +35,6 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
       "division",
       () => {
         if (target?.classList.contains("dot") && target.clientWidth >= 10) {
-          console.log("hello");
           target.classList.remove("dot");
           target.classList.add("wrapper");
           setDots([1, 2, 3, 4]);
