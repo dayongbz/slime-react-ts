@@ -152,6 +152,8 @@ input[type="button"] {
   padding: 0 5px;
   color: #666;
   cursor: pointer;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 input[type="button"]:hover {
