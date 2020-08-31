@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/slime-react-ts/static/css/main.3fe0e4d0.chunk.css",
+    "main.css": "/slime-react-ts/static/css/main.a635a20c.chunk.css",
     "main.js": "/slime-react-ts/static/js/main.d510a26b.chunk.js",
     "main.js.map": "/slime-react-ts/static/js/main.d510a26b.chunk.js.map",
     "runtime-main.js": "/slime-react-ts/static/js/runtime-main.f071498b.js",
@@ -8,15 +8,15 @@
     "static/js/2.e5139fa6.chunk.js": "/slime-react-ts/static/js/2.e5139fa6.chunk.js",
     "static/js/2.e5139fa6.chunk.js.map": "/slime-react-ts/static/js/2.e5139fa6.chunk.js.map",
     "index.html": "/slime-react-ts/index.html",
-    "precache-manifest.4c2bacc16ca1cf352193e44e85591714.js": "/slime-react-ts/precache-manifest.4c2bacc16ca1cf352193e44e85591714.js",
+    "precache-manifest.cbb5a966e6026202caaea30c779fc4e0.js": "/slime-react-ts/precache-manifest.cbb5a966e6026202caaea30c779fc4e0.js",
     "service-worker.js": "/slime-react-ts/service-worker.js",
-    "static/css/main.3fe0e4d0.chunk.css.map": "/slime-react-ts/static/css/main.3fe0e4d0.chunk.css.map",
+    "static/css/main.a635a20c.chunk.css.map": "/slime-react-ts/static/css/main.a635a20c.chunk.css.map",
     "static/js/2.e5139fa6.chunk.js.LICENSE.txt": "/slime-react-ts/static/js/2.e5139fa6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f071498b.js",
     "static/js/2.e5139fa6.chunk.js",
-    "static/css/main.3fe0e4d0.chunk.css",
+    "static/css/main.a635a20c.chunk.css",
     "static/js/main.d510a26b.chunk.js"
   ]
 }
