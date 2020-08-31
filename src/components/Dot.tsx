@@ -6,10 +6,13 @@ const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
 
   const onMouseEnter = (e: any) => {
     // element what has dot class remove dot class then add wrapper class
-    if (dotRef.current) {
-      dotRef.current.classList.remove("dot");
-      dotRef.current.classList.add("wrapper");
-      setDots([1, 2, 3, 4]);
+    const target = dotRef.current;
+    if (target && target.clientWidth >= 10) {
+      if (dotRef.current) {
+        dotRef.current.classList.remove("dot");
+        dotRef.current.classList.add("wrapper");
+        setDots([1, 2, 3, 4]);
+      }
     }
   };
 
@@ -26,15 +29,13 @@ const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
     }
   }, [ctx, name, wrapperSize]);
 
-  useEffect(() => {
-    if (dotRef.current && dotRef.current.clientWidth / 2 >= 8) {
-      dotRef.current.addEventListener("mouseenter", onMouseEnter, {
-        once: true,
-      });
-    }
-  }, []);
   return (
-    <div ref={dotRef} className="dot" style={{ width: size, height: size }}>
+    <div
+      ref={dotRef}
+      className="dot"
+      style={{ width: size, height: size }}
+      onMouseEnter={onMouseEnter}
+    >
       {dots.map((item) => {
         return (
           <Dot

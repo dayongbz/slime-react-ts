@@ -1,8 +1,9 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useEffect } from "react";
 import getWidthHeight from "../tools/getWidthHeight";
 
 const CanvasImg = memo(({ name, screenSize, dispatch }: any) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const setCanvas = (
     // set canvas size and draw image and return ctx
@@ -28,9 +29,21 @@ const CanvasImg = memo(({ name, screenSize, dispatch }: any) => {
     }
   };
 
+  useEffect(() => {
+    if (canvasRef.current && imgRef.current) {
+      const canvas = canvasRef.current as HTMLCanvasElement;
+      const img = imgRef.current;
+      const size = getWidthHeight(img, screenSize);
+      const ctx = setCanvas(canvas, img, size.width, size.height);
+      dispatch({ type: "SET_IMG_CTX", name, ctx, img });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screenSize, name]);
+
   return (
     <div className={`${name}-wrapper`}>
       <img
+        ref={imgRef}
         onLoad={onLoad}
         className={name}
         alt={name}

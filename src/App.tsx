@@ -95,12 +95,12 @@ const App = memo(() => {
       const img = state.imgCtx[state.name].img;
       const size = getWidthHeight(img, state.screenSize);
       const dotsCount = getDotsCount(size, size.width / 2);
-      setDotWrapper(size.width, size.height);
-      makeInitDots(dotsCount);
       dispatch({
         type: "SET_DOT_SIZE",
         dotSize: size.width / 2,
       });
+      setDotWrapper(size.width, size.height);
+      makeInitDots(dotsCount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.imgCtx[state.name], state.name, state.screenSize]);
