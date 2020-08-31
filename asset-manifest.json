@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/slime-react-ts/static/css/main.f5fd8f3a.chunk.css",
-    "main.js": "/slime-react-ts/static/js/main.866c98b8.chunk.js",
-    "main.js.map": "/slime-react-ts/static/js/main.866c98b8.chunk.js.map",
+    "main.css": "/slime-react-ts/static/css/main.6800b0fc.chunk.css",
+    "main.js": "/slime-react-ts/static/js/main.3e80f338.chunk.js",
+    "main.js.map": "/slime-react-ts/static/js/main.3e80f338.chunk.js.map",
     "runtime-main.js": "/slime-react-ts/static/js/runtime-main.f071498b.js",
     "runtime-main.js.map": "/slime-react-ts/static/js/runtime-main.f071498b.js.map",
     "static/js/2.e5139fa6.chunk.js": "/slime-react-ts/static/js/2.e5139fa6.chunk.js",
     "static/js/2.e5139fa6.chunk.js.map": "/slime-react-ts/static/js/2.e5139fa6.chunk.js.map",
     "index.html": "/slime-react-ts/index.html",
-    "precache-manifest.f75465adb409e219be88534f6d434f40.js": "/slime-react-ts/precache-manifest.f75465adb409e219be88534f6d434f40.js",
+    "precache-manifest.292d02abc6120ce084b84022c1aa16fc.js": "/slime-react-ts/precache-manifest.292d02abc6120ce084b84022c1aa16fc.js",
     "service-worker.js": "/slime-react-ts/service-worker.js",
-    "static/css/main.f5fd8f3a.chunk.css.map": "/slime-react-ts/static/css/main.f5fd8f3a.chunk.css.map",
+    "static/css/main.6800b0fc.chunk.css.map": "/slime-react-ts/static/css/main.6800b0fc.chunk.css.map",
     "static/js/2.e5139fa6.chunk.js.LICENSE.txt": "/slime-react-ts/static/js/2.e5139fa6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f071498b.js",
     "static/js/2.e5139fa6.chunk.js",
-    "static/css/main.f5fd8f3a.chunk.css",
-    "static/js/main.866c98b8.chunk.js"
+    "static/css/main.6800b0fc.chunk.css",
+    "static/js/main.3e80f338.chunk.js"
   ]
 }
