@@ -5,12 +5,14 @@ import Dot from "./components/Dot";
 import CanvasImgWrapper from "./components/CanvasImgWrapper";
 import ProfileWrapper from "./components/ProfileWrapper";
 import getWidthHeight from "./tools/getWidthHeight";
+import getDotsCount from "./tools/getDotsCount";
 
 const initialState = {
   name: "kimchaewon",
   imgCtx: {},
   dotSize: 0,
   screenSize: [0, 0],
+  dotWrapperSize: [0, 0],
   initDotsCount: [],
 };
 
@@ -30,6 +32,8 @@ const reducer = (state: any, action: any) => {
       return { ...state, dotSize: action.dotSize };
     case "SET_SCREEN_SIZE":
       return { ...state, screenSize: [...action.size] };
+    case "SET_DOT_WRAPPER_SIZE":
+      return { ...state, dotWrapperSize: [...action.size] };
     case "SET_INIT_DOTS_COUNT":
       return { ...state, initDotsCount: [...action.initDotsCount] };
     default:
@@ -62,10 +66,21 @@ const App = memo(() => {
       dotWrapper.style.width = `${imgWidth}px`;
       dotWrapper.style.height = `${imgHeight}px`;
       dispatch({
-        type: "SET_INIT_DOTS_COUNT",
-        initDotsCount: [1, 2, 3, 4, 5, 6],
+        type: "SET_DOT_WRAPPER_SIZE",
+        size: [imgWidth, imgHeight],
       });
     }
+  };
+
+  const makeInitDots = (dotsCount: number) => {
+    const initDotsCount = [];
+    for (let i = 0; i < dotsCount; i++) {
+      initDotsCount.push(i);
+    }
+    dispatch({
+      type: "SET_INIT_DOTS_COUNT",
+      initDotsCount,
+    });
   };
 
   const onReSize = () => {
@@ -79,10 +94,12 @@ const App = memo(() => {
     if (state.imgCtx[state.name]) {
       const img = state.imgCtx[state.name].img;
       const size = getWidthHeight(img, state.screenSize);
+      const dotsCount = getDotsCount(size, size.width / 2);
       setDotWrapper(size.width, size.height);
+      makeInitDots(dotsCount);
       dispatch({
         type: "SET_DOT_SIZE",
-        dotSize: 278,
+        dotSize: size.width / 2,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,6 +129,7 @@ const App = memo(() => {
               ctx={state.imgCtx[state.name].ctx}
               key={item.toString()}
               name={state.name}
+              wrapperSize={state.dotWrapperSize}
             />
           ))}
         </div>
