@@ -1,21 +1,21 @@
+html {
+  overflow: hidden;
+}
 body {
-  background-color: #fff;
+  overflow: hidden;
+  /* background-color: #2d3436; */
 }
 
 #root {
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  overflow: hidden;
+  flex-direction: column;
 }
 
 #main-wrapper {
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   background-color: #2d3436;
 }
 
@@ -60,7 +60,6 @@ canvas {
   display: flex;
   top: 0;
   left: 0;
-  height: 125px;
   transition: transform 0.3s;
 }
 

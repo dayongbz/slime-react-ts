@@ -35,6 +35,7 @@ const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
       className="dot"
       style={{ width: size, height: size }}
       onMouseEnter={onMouseEnter}
+      onTouchStart={onMouseEnter}
     >
       {dots.map((item) => {
         return (

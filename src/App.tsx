@@ -86,7 +86,10 @@ const App = memo(() => {
   const onReSize = () => {
     dispatch({
       type: "SET_SCREEN_SIZE",
-      size: [window.innerWidth, window.innerHeight],
+      size: [
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight,
+      ],
     });
   };
 
@@ -120,7 +123,7 @@ const App = memo(() => {
       />
       <div
         id="main-wrapper"
-        style={{ height: `${window.innerHeight - 125}px` }}
+        style={{ height: `${document.documentElement.clientHeight - 125}px` }}
       >
         <div ref={dotWrapperRef} className="wrapper" id="dot-wrapper">
           {state.initDotsCount.map((item: any) => (
