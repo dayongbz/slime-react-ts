@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "57d547036fe22534c7791233e53f5ec9",
+    "revision": "4f6b1513bf71b76e239bfee3569e2a76",
     "url": "/slime-react-ts/index.html"
   },
   {
-    "revision": "70649bb38627b14118de",
-    "url": "/slime-react-ts/static/css/main.7ddfadff.chunk.css"
+    "revision": "a37ba204f654d7a67c1c",
+    "url": "/slime-react-ts/static/css/main.176bf501.chunk.css"
   },
   {
     "revision": "84dd8a7bcef4dee1e944",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/slime-react-ts/static/js/2.1dfadf15.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "70649bb38627b14118de",
-    "url": "/slime-react-ts/static/js/main.5184462e.chunk.js"
+    "revision": "a37ba204f654d7a67c1c",
+    "url": "/slime-react-ts/static/js/main.0bbf9824.chunk.js"
   },
   {
     "revision": "db6e23e6b6ad59f1d255",
