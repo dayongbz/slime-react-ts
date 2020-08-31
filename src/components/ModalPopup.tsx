@@ -26,6 +26,7 @@ const ModalPopup = memo(({ title, description, dispatch }: any) => {
           <input type="button" value="아니오" onClick={onCancel} />
         </div>
       </div>
+      <div className="background" onClick={onCancel}></div>
     </div>
   );
 });
