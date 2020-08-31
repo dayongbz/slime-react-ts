@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, memo } from "react";
 
-const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
+const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
@@ -29,13 +29,28 @@ const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
     }
   }, [ctx, name, wrapperSize]);
 
+  useEffect(() => {
+    const target = dotRef.current;
+    target?.addEventListener(
+      "division",
+      () => {
+        if (target?.classList.contains("dot") && target.clientWidth >= 10) {
+          console.log("hello");
+          target.classList.remove("dot");
+          target.classList.add("wrapper");
+          setDots([1, 2, 3, 4]);
+        }
+      },
+      { once: true }
+    );
+  }, []);
+
   return (
     <div
       ref={dotRef}
       className="dot"
       style={{ width: size, height: size }}
       onMouseEnter={onMouseEnter}
-      onTouchStart={onMouseEnter}
     >
       {dots.map((item) => {
         return (
@@ -44,6 +59,7 @@ const Dot = memo(({ ctx, size, name, wrapperSize }: any) => {
             key={item.toString()}
             ctx={ctx}
             name={name}
+            event={event}
             wrapperSize={wrapperSize}
           />
         );

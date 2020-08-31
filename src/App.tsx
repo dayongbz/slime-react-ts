@@ -58,6 +58,7 @@ const App = memo(() => {
     "jangwonyoung",
   ]);
   const dotWrapperRef = useRef<HTMLDivElement>(null);
+  const eventRef = useRef<Event>(new Event("division"));
 
   const setDotWrapper = (imgWidth: number, imgHeight: number) => {
     // set dot-wrapper size
@@ -93,6 +94,17 @@ const App = memo(() => {
     });
   };
 
+  const onTouchMove = (e: any) => {
+    const dot = document.elementFromPoint(
+      e.touches[0].clientX,
+      e.touches[0].clientY
+    );
+    if (dot && dot.classList.contains("dot")) {
+      dot.dispatchEvent(eventRef.current);
+      dot.classList.add("hello");
+    }
+  };
+
   useEffect(() => {
     if (state.imgCtx[state.name]) {
       const img = state.imgCtx[state.name].img;
@@ -112,6 +124,7 @@ const App = memo(() => {
     // when document is loaded, set screenSize state at once
     onReSize();
     window.addEventListener("resize", onReSize);
+    window.addEventListener("touchmove", onTouchMove);
   }, []);
 
   return (
@@ -132,6 +145,7 @@ const App = memo(() => {
               ctx={state.imgCtx[state.name].ctx}
               key={item.toString()}
               name={state.name}
+              event={eventRef.current}
               wrapperSize={state.dotWrapperSize}
             />
           ))}
