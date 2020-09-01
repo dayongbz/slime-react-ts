@@ -8,7 +8,6 @@ html {
 body {
   overflow: hidden;
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 16px;
 }
 
 #root {
@@ -66,6 +65,9 @@ canvas {
 #profile-slide {
   position: absolute;
   display: flex;
+  flex-shrink: unset;
+  justify-content: flex-start;
+  align-items: flex-start;
   top: 0;
   left: 0;
   transition: transform 0.3s;
