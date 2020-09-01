@@ -24,4 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run deploy
+      - name: Run build
+        run: npm run build
+      - name: Run gh-pages
+        run: npm run deploy
