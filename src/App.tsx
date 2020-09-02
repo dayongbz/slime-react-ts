@@ -119,13 +119,18 @@ const App = memo(() => {
   };
 
   const onTouchMove = (e: any) => {
-    const dot = document.elementFromPoint(
-      e.touches[0].clientX,
-      e.touches[0].clientY
-    );
-    if (dot && dot.classList.contains("dot")) {
-      dot.dispatchEvent(eventRef.current);
-      dot.classList.add("hello");
+    const dots = [];
+    for (let i = 0; i < e.touches.length; i++) {
+      dots.push(
+        document.elementFromPoint(e.touches[i].clientX, e.touches[i].clientY)
+      );
+    }
+    for (let i = 0; i < dots.length; i++) {
+      const dot = dots[i];
+      if (dot && dot.classList.contains("dot")) {
+        dot.dispatchEvent(eventRef.current);
+        dot.classList.add("hello");
+      }
     }
   };
 

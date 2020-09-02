@@ -8,6 +8,7 @@ html {
 body {
   overflow: hidden;
   font-family: "Noto Sans KR", sans-serif;
+  touch-action: none;
 }
 
 #root {
@@ -33,7 +34,6 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: hidden;
   position: relative;
 }
 
