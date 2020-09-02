@@ -22,10 +22,6 @@ const getWidthHeight = (img: HTMLImageElement, screenSize: any): any => {
       result.width = maxWidth;
     }
   }
-  console.log({
-    width: Math.floor(result.width),
-    height: Math.floor(result.height),
-  });
   return {
     width: Math.floor(result.width),
     height: Math.floor(result.height),

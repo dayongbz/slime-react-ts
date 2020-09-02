@@ -1,17 +1,15 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 
-const Dot = memo(({ ctx, name, wrapperSize, event, depth }: any) => {
+const Dot = memo(({ ctx, wrapperSize, event, depth }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
   const onEvent = useCallback(() => {
     // element what has dot class remove dot class then add wrapper class
-    if (dotRef.current?.classList.contains("dot") && depth < 6) {
-      dotRef.current?.classList.remove("dot");
-      dotRef.current?.classList.add("wrapper");
-      setDots([1, 2, 3, 4]);
-    }
-  }, [depth]);
+    dotRef.current?.classList.remove("dot");
+    dotRef.current?.classList.add("wrapper");
+    setDots([1, 2, 3, 4]);
+  }, []);
 
   useEffect(() => {
     // init dot setting
@@ -29,13 +27,22 @@ const Dot = memo(({ ctx, name, wrapperSize, event, depth }: any) => {
       const colorData = ctx.getImageData(x, y, 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
     }
-  }, [ctx, name, wrapperSize]);
+  }, [ctx, wrapperSize]);
 
   useEffect(() => {
     const target = dotRef.current;
-    target?.addEventListener("mouseenter", onEvent, { once: true });
-    target?.addEventListener("division", onEvent, { once: true });
-  }, [onEvent]);
+    if (target && target.classList.contains("dot") && depth < 6) {
+      target.addEventListener("mouseenter", onEvent, { once: true });
+      target.addEventListener("division", onEvent, { once: true });
+    }
+    return () => {
+      const target = dotRef.current;
+      if (target && target.classList.contains("dot") && depth < 6) {
+        target.removeEventListener("mouseenter", onEvent);
+        target.removeEventListener("division", onEvent);
+      }
+    };
+  }, [onEvent, depth]);
 
   return (
     <div ref={dotRef} className="dot">
@@ -44,7 +51,6 @@ const Dot = memo(({ ctx, name, wrapperSize, event, depth }: any) => {
           <Dot
             key={item.toString()}
             ctx={ctx}
-            name={name}
             event={event}
             wrapperSize={wrapperSize}
             depth={depth + 1}

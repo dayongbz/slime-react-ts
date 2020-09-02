@@ -80,6 +80,7 @@ const App = memo(() => {
   const dotWrapperRef = useRef<HTMLDivElement>(null);
   const dotSubWrapperRef = useRef<HTMLDivElement>(null);
   const eventRef = useRef<Event>(new CustomEvent("division"));
+  const timeRef = useRef<any>(0);
 
   const setDotWrapper = (imgWidth: number, imgHeight: number) => {
     // set dot-wrapper size
@@ -149,7 +150,11 @@ const App = memo(() => {
   useEffect(() => {
     // when document is loaded, set screenSize state at once
     onReSize();
-    window.addEventListener("resize", onReSize);
+    const onReSizeDelay = () => {
+      timeRef.current && clearTimeout(timeRef.current);
+      timeRef.current = setTimeout(onReSize, 300);
+    };
+    window.addEventListener("resize", onReSizeDelay);
     window.addEventListener("touchmove", onTouchMove);
   }, []);
 
@@ -175,8 +180,6 @@ const App = memo(() => {
               <Dot
                 ctx={state.imgCtx[state.name].ctx}
                 key={item.toString()}
-                name={state.name}
-                index={index}
                 event={eventRef.current}
                 wrapperSize={state.dotWrapperSize}
                 depth={1}
