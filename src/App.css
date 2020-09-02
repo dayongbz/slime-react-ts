@@ -25,8 +25,14 @@ body {
 }
 
 #dot-wrapper {
+  overflow: hidden;
+}
+
+#dot-subwrapper {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
   overflow: hidden;
   position: relative;
 }
@@ -39,10 +45,14 @@ body {
   align-items: center;
   align-content: flex-start;
   background-color: transparent !important;
+  width: 50%;
+  height: 50%;
 }
 
 .dot {
   border-radius: 100%;
+  width: 50%;
+  height: 50%;
 }
 
 img {
@@ -65,9 +75,10 @@ canvas {
 #profile-slide {
   position: absolute;
   display: flex;
-  flex-shrink: unset;
   justify-content: flex-start;
   align-items: flex-start;
+  align-content: flex-start;
+  flex: 0%;
   top: 0;
   left: 0;
   transition: transform 0.3s;

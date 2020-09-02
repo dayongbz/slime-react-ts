@@ -18,11 +18,6 @@ const Profile = memo(({ name, dispatch, select }: any) => {
           ],
         },
       });
-      // dispatch({
-      //   type: "SET_INIT_DOTS_COUNT",
-      //   initDotsCount: [],
-      // });
-      // dispatch({ type: "SET_NAME", name });
     }
   };
   return (

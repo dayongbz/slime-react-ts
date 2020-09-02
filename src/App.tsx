@@ -80,14 +80,19 @@ const App = memo(() => {
     "jangwonyoung",
   ]);
   const dotWrapperRef = useRef<HTMLDivElement>(null);
+  const dotSubWrapperRef = useRef<HTMLDivElement>(null);
   const eventRef = useRef<Event>(new CustomEvent("division"));
 
   const setDotWrapper = (imgWidth: number, imgHeight: number) => {
     // set dot-wrapper size
-    if (dotWrapperRef.current) {
-      const dotWrapper = dotWrapperRef.current as HTMLDivElement;
+    if (dotWrapperRef.current && dotSubWrapperRef.current) {
+      const dotWrapper = dotWrapperRef.current;
+      const dotSubWrapper = dotSubWrapperRef.current;
       dotWrapper.style.width = `${imgWidth}px`;
       dotWrapper.style.height = `${imgHeight}px`;
+
+      dotSubWrapper.style.width = `${imgWidth}px`;
+      dotSubWrapper.style.height = `${imgWidth}px`;
       dispatch({
         type: "SET_DOT_WRAPPER_SIZE",
         size: [imgWidth, imgHeight],
@@ -161,16 +166,19 @@ const App = memo(() => {
         style={{ height: `${document.documentElement.clientHeight - 125}px` }}
       >
         <div ref={dotWrapperRef} id="dot-wrapper">
-          {state.initDotsCount.map((item: any) => (
-            <Dot
-              size={state.dotSize}
-              ctx={state.imgCtx[state.name].ctx}
-              key={item.toString()}
-              name={state.name}
-              event={eventRef.current}
-              wrapperSize={state.dotWrapperSize}
-            />
-          ))}
+          <div ref={dotSubWrapperRef} id="dot-subwrapper">
+            {state.initDotsCount.map((item: any, index: number) => (
+              <Dot
+                size={state.dotSize}
+                ctx={state.imgCtx[state.name].ctx}
+                key={item.toString()}
+                name={state.name}
+                index={index}
+                event={eventRef.current}
+                wrapperSize={state.dotWrapperSize}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <ProfileWrapper

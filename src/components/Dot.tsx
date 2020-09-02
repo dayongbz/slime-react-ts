@@ -1,17 +1,20 @@
-import React, { useRef, useEffect, useState, memo } from "react";
+import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 
 const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
-  const onEvent = () => {
+  const onEvent = useCallback(() => {
     // element what has dot class remove dot class then add wrapper class
-    if (dotRef.current?.classList.contains("dot") && size / 2 >= 5) {
+    if (
+      dotRef.current?.classList.contains("dot") &&
+      dotRef.current.offsetWidth / 2 >= 5
+    ) {
       dotRef.current?.classList.remove("dot");
       dotRef.current?.classList.add("wrapper");
       setDots([1, 2, 3, 4]);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // init dot setting
@@ -30,19 +33,14 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
     const target = dotRef.current;
     target?.addEventListener("mouseenter", onEvent, { once: true });
     target?.addEventListener("division", onEvent, { once: true });
-  }, []);
+  }, [onEvent]);
 
   return (
-    <div
-      ref={dotRef}
-      className="dot"
-      style={{ width: size, height: size }}
-      // onMouseEnter={onMouseEnter}
-    >
+    <div ref={dotRef} className="dot">
       {dots.map((item) => {
         return (
           <Dot
-            size={size / 2}
+            size={size}
             key={item.toString()}
             ctx={ctx}
             name={name}
