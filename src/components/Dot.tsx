@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 
-const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
+const Dot = memo(({ ctx, name, wrapperSize, event }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,6 @@ const Dot = memo(({ ctx, size, name, wrapperSize, event }: any) => {
       {dots.map((item) => {
         return (
           <Dot
-            size={size}
             key={item.toString()}
             ctx={ctx}
             name={name}

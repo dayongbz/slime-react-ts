@@ -11,7 +11,6 @@ import ModalPopup from "./components/ModalPopup";
 const initialState = {
   name: "kimchaewon",
   imgCtx: {},
-  dotSize: 0,
   screenSize: [0, 0],
   dotWrapperSize: [0, 0],
   initDotsCount: [],
@@ -30,8 +29,6 @@ const reducer = (state: any, action: any) => {
           [action.name]: { ctx: action.ctx, img: action.img },
         },
       };
-    case "SET_DOT_SIZE":
-      return { ...state, dotSize: action.dotSize };
     case "SET_SCREEN_SIZE":
       return { ...state, screenSize: [...action.size] };
     case "SET_DOT_WRAPPER_SIZE":
@@ -137,10 +134,6 @@ const App = memo(() => {
       const img = state.imgCtx[state.name].img;
       const size = getWidthHeight(img, state.screenSize);
       const dotsCount = getDotsCount(size, size.width / 2);
-      dispatch({
-        type: "SET_DOT_SIZE",
-        dotSize: size.width / 2,
-      });
       setDotWrapper(size.width, size.height);
       makeInitDots(dotsCount);
     }
@@ -169,7 +162,6 @@ const App = memo(() => {
           <div ref={dotSubWrapperRef} id="dot-subwrapper">
             {state.initDotsCount.map((item: any, index: number) => (
               <Dot
-                size={state.dotSize}
                 ctx={state.imgCtx[state.name].ctx}
                 key={item.toString()}
                 name={state.name}
