@@ -54,7 +54,8 @@ const reducer = (state: any, action: any) => {
         ...state,
         modalPopup: [...state.modalPopup.slice(1)],
       };
-
+    case "SET_MIN_SIZE":
+      return { ...state, minSize: action.minSize };
     default:
       return state;
   }
@@ -161,7 +162,12 @@ const App = memo(() => {
       />
       <div
         id="main-wrapper"
-        style={{ height: `${document.documentElement.clientHeight - 125}px` }}
+        style={{
+          height: `${
+            document.documentElement.clientHeight -
+            (document.documentElement.clientWidth > 600 ? 125 : 80)
+          }px`,
+        }}
       >
         <div ref={dotWrapperRef} id="dot-wrapper">
           <div ref={dotSubWrapperRef} id="dot-subwrapper">
@@ -173,6 +179,7 @@ const App = memo(() => {
                 index={index}
                 event={eventRef.current}
                 wrapperSize={state.dotWrapperSize}
+                depth={1}
               />
             ))}
           </div>

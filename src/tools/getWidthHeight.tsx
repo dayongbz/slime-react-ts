@@ -2,7 +2,7 @@ const getWidthHeight = (img: HTMLImageElement, screenSize: any): any => {
   let { width, height } = img;
   let [maxWidth, maxHeight] = screenSize;
   const ratio = width >= height ? width / height : height / width;
-  const profileHeight = 125;
+  const profileHeight = document.documentElement.clientWidth > 600 ? 125 : 80;
   const padding = 10;
   const result: any = { width: 0, height: 0 };
   maxWidth = maxWidth - padding * 2;
@@ -22,6 +22,10 @@ const getWidthHeight = (img: HTMLImageElement, screenSize: any): any => {
       result.width = maxWidth;
     }
   }
+  console.log({
+    width: Math.floor(result.width),
+    height: Math.floor(result.height),
+  });
   return {
     width: Math.floor(result.width),
     height: Math.floor(result.height),

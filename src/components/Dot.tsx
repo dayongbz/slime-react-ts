@@ -1,24 +1,26 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 
-const Dot = memo(({ ctx, name, wrapperSize, event }: any) => {
+const Dot = memo(({ ctx, name, wrapperSize, event, depth }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
   const onEvent = useCallback(() => {
     // element what has dot class remove dot class then add wrapper class
-    if (
-      dotRef.current?.classList.contains("dot") &&
-      dotRef.current.offsetWidth / 2 >= 5
-    ) {
+    if (dotRef.current?.classList.contains("dot") && depth < 6) {
       dotRef.current?.classList.remove("dot");
       dotRef.current?.classList.add("wrapper");
       setDots([1, 2, 3, 4]);
     }
-  }, []);
+  }, [depth]);
 
   useEffect(() => {
     // init dot setting
-    if (dotRef.current && ctx && wrapperSize) {
+    if (
+      dotRef.current &&
+      dotRef.current?.classList.contains("dot") &&
+      ctx &&
+      wrapperSize
+    ) {
       const dot = dotRef.current;
       let x = dot.offsetLeft + dot.offsetWidth / 2,
         y = dot.offsetTop + dot.offsetHeight / 2;
@@ -45,6 +47,7 @@ const Dot = memo(({ ctx, name, wrapperSize, event }: any) => {
             name={name}
             event={event}
             wrapperSize={wrapperSize}
+            depth={depth + 1}
           />
         );
       })}
