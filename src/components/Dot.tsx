@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 
-const Dot = memo(({ ctx, wrapperSize, event, depth }: any) => {
+const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
@@ -31,18 +31,19 @@ const Dot = memo(({ ctx, wrapperSize, event, depth }: any) => {
 
   useEffect(() => {
     const target = dotRef.current;
-    if (target && target.classList.contains("dot") && depth < 6) {
+    if (target && target.classList.contains("dot") && depth < maxDepth) {
       target.addEventListener("mouseenter", onEvent, { once: true });
       target.addEventListener("division", onEvent, { once: true });
     }
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       const target = dotRef.current;
-      if (target && target.classList.contains("dot") && depth < 6) {
+      if (target && target.classList.contains("dot") && depth < maxDepth) {
         target.removeEventListener("mouseenter", onEvent);
         target.removeEventListener("division", onEvent);
       }
     };
-  }, [onEvent, depth]);
+  }, [onEvent, depth, maxDepth]);
 
   return (
     <div ref={dotRef} className="dot">
@@ -54,6 +55,7 @@ const Dot = memo(({ ctx, wrapperSize, event, depth }: any) => {
             event={event}
             wrapperSize={wrapperSize}
             depth={depth + 1}
+            maxDepth={maxDepth}
           />
         );
       })}

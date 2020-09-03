@@ -1,7 +1,7 @@
 import React, { memo, useRef, useEffect } from "react";
 import getWidthHeight from "../tools/getWidthHeight";
 
-const CanvasImg = memo(({ name, screenSize, dispatch }: any) => {
+const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -22,32 +22,26 @@ const CanvasImg = memo(({ name, screenSize, dispatch }: any) => {
   const onLoad = (e: any) => {
     if (canvasRef.current && e.target) {
       const canvas = canvasRef.current as HTMLCanvasElement;
-      const img = e.target;
-      const size = getWidthHeight(img, screenSize);
-      const ctx = setCanvas(canvas, img, size.width, size.height);
-      dispatch({ type: "SET_IMG_CTX", name, ctx, img });
+      const imgT = e.target;
+      const size = getWidthHeight(imgT, screenSize);
+      const ctx = setCanvas(canvas, imgT, size.width, size.height);
+      dispatch({
+        type: "SET_IMG_CTX",
+        name: `${group}/${name}/${img}`,
+        ctx,
+        img: imgT,
+      });
     }
   };
-
-  useEffect(() => {
-    if (canvasRef.current && imgRef.current) {
-      const canvas = canvasRef.current as HTMLCanvasElement;
-      const img = imgRef.current;
-      const size = getWidthHeight(img, screenSize);
-      const ctx = setCanvas(canvas, img, size.width, size.height);
-      dispatch({ type: "SET_IMG_CTX", name, ctx, img });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screenSize, name]);
 
   return (
     <div className={`${name}-wrapper`}>
       <img
         ref={imgRef}
         onLoad={onLoad}
-        className={name}
+        className={`name/${img}`}
         alt={name}
-        src={`./img/${name}.jpg`}
+        src={`./img/${group}/${name}/${img}`}
       />
       <canvas ref={canvasRef} className={name}></canvas>
     </div>

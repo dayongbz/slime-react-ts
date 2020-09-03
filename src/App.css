@@ -97,7 +97,7 @@ canvas {
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  filter: brightness(0.5);
+  filter: brightness(0.8);
   transition: background-size 0.3s, filter 0.3s;
 }
 
