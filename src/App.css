@@ -58,7 +58,7 @@ body {
   background-color: white;
 }
 
-img {
+img.none {
   display: none;
 }
 
@@ -72,41 +72,72 @@ canvas {
   height: 125px;
   background-color: #222;
   overflow-x: auto;
-  overflow-y: hidden;
 }
 
 #profile-slide {
   position: absolute;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
   flex: 0%;
   top: 0;
   left: 0;
   transition: transform 0.3s;
 }
 
-.profile {
-  display: inline-block;
-  margin: 25px;
-  width: 75px;
-  height: 75px;
+.prev {
+  width: 55px;
+  height: 55px;
+  margin: 35px 10px 35px 25px;
   border-radius: 100%;
+  cursor: pointer;
+  background-color: #2d3436;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.prev:hover {
+  background-color: #636e72;
+}
+
+.prev img {
+  width: 50px;
+  margin-right: 5px;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px;
+  width: 125px;
+  height: 75px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.profile .sub {
+  color: #ecf0f1;
+  z-index: 10;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.profile .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  cursor: pointer;
-  filter: brightness(0.8);
-  transition: background-size 0.3s, filter 0.3s;
+  filter: brightness(0.5);
+  transition: transform 0.3s;
 }
 
-.profile.selected {
-  filter: brightness(1);
-}
-
-.profile:hover {
-  filter: brightness(1);
+.profile:hover .background {
+  transform: scale(1.5);
 }
 
 #modal-popup-wrapper {
@@ -121,7 +152,7 @@ canvas {
   z-index: 99;
 }
 
-.background {
+#modal-popup-wrapper .background {
   content: "";
   display: block;
   position: absolute;
@@ -183,8 +214,24 @@ input[type="button"]:hover {
   }
 
   .profile {
-    width: 50px;
+    width: 75px;
     height: 50px;
     margin: 15px;
+  }
+
+  .profile .sub {
+    font-size: 0.5rem;
+    font-weight: normal;
+  }
+
+  .prev {
+    width: 30px;
+    height: 30px;
+    margin: 25px 10px 25px 25px;
+  }
+
+  .prev img {
+    width: 30px;
+    margin-right: 0;
   }
 }

@@ -31,10 +31,8 @@ const reducer = (state: any, action: any) => {
   switch (action.type) {
     case "SET_PROFILE":
       return { ...state, profile: [...state.profile, action.status] };
-    case "RESET_PROFILE":
-      return { ...state, profile: [] };
     case "PREV_PROFILE":
-      return { ...state, profile: [...state.profile.pop()] };
+      return { ...state, profile: [...state.profile.slice(0, -1)] };
     case "SET_NAME":
       return { ...state, name: action.name };
     case "SET_GROUP":
@@ -234,6 +232,13 @@ const App = memo(() => {
       </div>
       <div id="profile-wrapper">
         <div id="profile-slide">
+          {state.selectedProfile !== "home" && (
+            <Profile
+              type="prev"
+              dispatch={dispatch}
+              depth={state.profile.length}
+            />
+          )}
           {state.selectedProfile === "home"
             ? state.dataJson.names.map((item: any) => (
                 <Profile
@@ -241,6 +246,7 @@ const App = memo(() => {
                   key={item}
                   type={"home"}
                   dispatch={dispatch}
+                  sub={item}
                 ></Profile>
               ))
             : state.selectedProfile === "group"
@@ -251,6 +257,7 @@ const App = memo(() => {
                   key={item}
                   type={"group"}
                   dispatch={dispatch}
+                  sub={item}
                 />
               ))
             : state.dataJson[state.profile[0]].imgs[

@@ -39,7 +39,7 @@ const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
       <img
         ref={imgRef}
         onLoad={onLoad}
-        className={`name/${img}`}
+        className={`name/${img} none`}
         alt={name}
         src={`./img/${group}/${name}/${img}`}
       />
