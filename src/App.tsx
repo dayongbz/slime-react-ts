@@ -269,6 +269,13 @@ const App = memo(() => {
                   group={state.profile[0]}
                   key={item}
                   type={"member"}
+                  selected={
+                    state.selectedImg[state.selectedImg.length - 1].name ===
+                      state.profile[1] &&
+                    state.selectedImg[state.selectedImg.length - 1].group ===
+                      state.profile[0] &&
+                    state.selectedImg[state.selectedImg.length - 1].img === item
+                  }
                   dispatch={dispatch}
                 />
               ))}

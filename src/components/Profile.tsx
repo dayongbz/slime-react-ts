@@ -1,9 +1,7 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 
 const Profile = memo(
-  ({ name, dispatch, type, group, img, sub, depth }: any) => {
-    const [selected, setSelected] = useState(false);
-
+  ({ name, dispatch, type, group, img, sub, depth, selected }: any) => {
     const onClick = (e: any) => {
       if (type === "home") {
         dispatch({ type: "SET_SELECTED_PROFILE", select: "group" });
@@ -40,7 +38,6 @@ const Profile = memo(
             ],
           },
         });
-        setSelected(true);
       }
     };
 
