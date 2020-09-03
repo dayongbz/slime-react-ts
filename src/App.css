@@ -102,7 +102,7 @@ canvas {
 
 .prev img {
   width: 50px;
-  margin-right: 5px;
+  margin-right: 2.5px;
 }
 
 .profile {
@@ -113,7 +113,7 @@ canvas {
   margin: 25px;
   width: 125px;
   height: 75px;
-  border-radius: 10px;
+  border-radius: 10%;
   overflow: hidden;
   cursor: pointer;
 }
@@ -129,15 +129,17 @@ canvas {
   position: absolute;
   width: 100%;
   height: 100%;
+  border-radius: 10%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   filter: brightness(0.5);
-  transition: transform 0.3s;
+  transition: width 0.3s, height 0.3s;
 }
 
 .profile:hover .background {
-  transform: scale(1.5);
+  width: 150%;
+  height: 150%;
 }
 
 #modal-popup-wrapper {
@@ -221,7 +223,6 @@ input[type="button"]:hover {
 
   .profile .sub {
     font-size: 0.5rem;
-    font-weight: normal;
   }
 
   .prev {

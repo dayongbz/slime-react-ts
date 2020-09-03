@@ -34,6 +34,21 @@ const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
     }
   };
 
+  useEffect(() => {
+    if (canvasRef.current && imgRef.current) {
+      const canvas = canvasRef.current as HTMLCanvasElement;
+      const imgT = imgRef.current;
+      const size = getWidthHeight(imgT, screenSize);
+      const ctx = setCanvas(canvas, imgT, size.width, size.height);
+      dispatch({
+        type: "SET_IMG_CTX",
+        name: `${group}/${name}/${img}`,
+        ctx,
+        img: imgT,
+      });
+    }
+  }, [dispatch, group, img, name, screenSize]);
+
   return (
     <div className={`${name}-wrapper`}>
       <img
