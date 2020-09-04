@@ -1,7 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 const Profile = memo(
-  ({ name, dispatch, type, group, img, sub, depth, selected }: any) => {
+  ({ name, dispatch, type, group, img, sub, depth, selected, imgs }: any) => {
+    const [loaded, setLoaded] = useState(false);
+
     const onClick = (e: any) => {
       if (type === "home") {
         dispatch({ type: "SET_SELECTED_PROFILE", select: "group" });
@@ -58,6 +60,21 @@ const Profile = memo(
           break;
       }
     };
+
+    useEffect(() => {
+      const imgLoad = new Image();
+      imgLoad.onload = function () {
+        setLoaded(true);
+      };
+      imgLoad.src =
+        type === "home"
+          ? `./img/${group}/group/0.jpg`
+          : type === "group"
+          ? `./img/${group}/${name}/0.jpg`
+          : `./img/${group}/${name}/${img}`;
+      console.log(imgLoad.src);
+    }, [type, group, name, img]);
+
     return (
       <>
         {type === "prev" ? (
@@ -67,8 +84,11 @@ const Profile = memo(
               alt="이전으로"
             />
           </div>
-        ) : (
-          <div onClick={onClick} className={"profile"}>
+        ) : loaded ? (
+          <div
+            onClick={onClick}
+            className={type === "home" ? "profile group" : "profile"}
+          >
             <div
               className="background"
               style={
@@ -80,6 +100,10 @@ const Profile = memo(
               }
             ></div>
             <p className="sub">{sub}</p>
+          </div>
+        ) : (
+          <div className="profile loading">
+            <img src="./img/loop-white-18dp.svg" alt="loading" />
           </div>
         )}
       </>

@@ -257,6 +257,7 @@ const App = memo(() => {
                   key={item}
                   type={"group"}
                   dispatch={dispatch}
+                  imgs={state.dataJson[state.profile[0]].imgs[item]}
                   sub={item}
                 />
               ))

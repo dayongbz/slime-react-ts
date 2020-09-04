@@ -15,6 +15,8 @@ body {
 #root {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -42,7 +44,6 @@ body {
 .wrapper {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
   align-content: flex-start;
@@ -72,6 +73,7 @@ canvas {
   height: 125px;
   background-color: #222;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 #profile-slide {
@@ -118,6 +120,23 @@ canvas {
   cursor: pointer;
 }
 
+@keyframes upNdown {
+  0% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(10%);
+  }
+}
+
+.profile.group {
+  animation: upNdown 1s ease-in-out 1s infinite alternate both;
+}
+
+.profile.group:hover {
+  animation-play-state: paused;
+}
 .profile .sub {
   color: #ecf0f1;
   z-index: 10;
@@ -140,6 +159,21 @@ canvas {
 .profile:hover .background {
   width: 150%;
   height: 150%;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading img {
+  width: 80%;
+  height: 80%;
+  animation: loading 3s linear 0s infinite reverse both;
 }
 
 #modal-popup-wrapper {
