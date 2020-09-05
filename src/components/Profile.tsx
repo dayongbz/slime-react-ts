@@ -72,7 +72,6 @@ const Profile = memo(
           : type === "group"
           ? `./img/${group}/${name}/0.jpg`
           : `./img/${group}/${name}/${img}`;
-      console.log(imgLoad.src);
     }, [type, group, name, img]);
 
     return (

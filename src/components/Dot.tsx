@@ -31,6 +31,11 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
 
   useEffect(() => {
     const target = dotRef.current;
+    if (depth === maxDepth && target?.classList.contains("wrapper")) {
+      setDots([]);
+      target.classList.add("dot");
+      target?.classList.remove("wrapper");
+    }
     if (target && target.classList.contains("dot") && depth < maxDepth) {
       target.addEventListener("mouseenter", onEvent, { once: true });
       target.addEventListener("division", onEvent, { once: true });
