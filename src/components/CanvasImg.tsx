@@ -26,7 +26,7 @@ const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
       const size = getWidthHeight(imgT, screenSize);
       const ctx = setCanvas(canvas, imgT, size.width, size.height);
       dispatch({
-        type: "SET_IMG_CTX",
+        type: "SET_IMG_CTX_ARR",
         name: `${group}/${name}/${img}`,
         ctx,
         img: imgT,

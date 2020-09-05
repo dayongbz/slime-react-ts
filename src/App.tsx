@@ -19,9 +19,10 @@ const initialState = {
   selectedProfile: "home",
   profile: [],
   selectedImg: [{ group: "izone", name: "group", img: "0.jpg" }],
-  imgCtx: [],
-  screenSize: [0, 0],
-  dotWrapperSize: [0, 0],
+  imgCtx: null,
+  imgCtxArr: [],
+  screenSize: [],
+  dotWrapperSize: [],
   initDotsCount: [],
   modalPopup: [],
   maxDepth: 6,
@@ -39,10 +40,11 @@ const reducer = (state: any, action: any) => {
       return { ...state, group: action.group };
     case "SET_IMG":
       return { ...state, img: action.img };
-    case "SET_IMG_CTX":
+    case "SET_IMG_CTX_ARR":
       return {
         ...state,
-        imgCtx: {
+        imgCtx: { ctx: action.ctx, img: action.img },
+        imgCtxARR: {
           ...state.imgCtx,
           [action.name]: { ctx: action.ctx, img: action.img },
         },
@@ -164,20 +166,14 @@ const App = memo(() => {
   }, [state.screenSize]);
 
   useEffect(() => {
-    if (state.imgCtx[`${state.group}/${state.name}/${state.img}`]) {
-      const img = state.imgCtx[`${state.group}/${state.name}/${state.img}`].img;
+    if (state.imgCtx) {
+      const img = state.imgCtx.img;
       const size = getWidthHeight(img, state.screenSize);
       const dotsCount = getDotsCount(size, size.width / 2);
       setDotWrapper(size.width, size.height);
       makeInitDots(dotsCount);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    state.imgCtx[`${state.group}/${state.name}/${state.img}`],
-    state.name,
-    state.screenSize,
-  ]);
+  }, [state.screenSize, state.imgCtx]);
 
   useEffect(() => {
     // when document is loaded, set screenSize state at once
@@ -215,18 +211,17 @@ const App = memo(() => {
       >
         <div ref={dotWrapperRef} id="dot-wrapper">
           <div ref={dotSubWrapperRef} id="dot-subwrapper">
-            {state.initDotsCount.map((item: any, index: number) => (
-              <Dot
-                ctx={
-                  state.imgCtx[`${state.group}/${state.name}/${state.img}`]?.ctx
-                }
-                key={item.toString()}
-                event={eventRef.current}
-                wrapperSize={state.dotWrapperSize}
-                depth={1}
-                maxDepth={state.maxDepth}
-              />
-            ))}
+            {state.initDotsCount &&
+              state.initDotsCount.map((item: any, index: number) => (
+                <Dot
+                  ctx={state.imgCtx?.ctx}
+                  key={item.toString()}
+                  event={eventRef.current}
+                  wrapperSize={state.dotWrapperSize}
+                  depth={1}
+                  maxDepth={state.maxDepth}
+                />
+              ))}
           </div>
         </div>
       </div>

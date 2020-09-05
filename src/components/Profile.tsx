@@ -15,18 +15,18 @@ const Profile = memo(
       }
       if (type === "member" && !selected) {
         dispatch({
-          type: "ADD_SELECTED_IMG",
-          name,
-          group,
-          img,
-        });
-        dispatch({
           type: "SET_MODAL_POPUP",
           modalPopup: {
             title: "경고",
             description: "지금까지 작업한 내용들이 초기화됩니다.",
-            functions: [dispatch, dispatch, dispatch, dispatch],
+            functions: [dispatch, dispatch, dispatch, dispatch, dispatch],
             args: [
+              {
+                type: "ADD_SELECTED_IMG",
+                name,
+                group,
+                img,
+              },
               {
                 type: "SET_INIT_DOTS_COUNT",
                 initDotsCount: [],
