@@ -204,24 +204,22 @@ const App = memo(() => {
         id="main-wrapper"
         style={{
           height: `${
-            document.documentElement.clientHeight -
-            (document.documentElement.clientWidth > 600 ? 125 : 80)
+            state.screenSize[1] - (state.screenSize[0] > 600 ? 125 : 80)
           }px`,
         }}
       >
         <div ref={dotWrapperRef} id="dot-wrapper">
           <div ref={dotSubWrapperRef} id="dot-subwrapper">
-            {state.initDotsCount &&
-              state.initDotsCount.map((item: any, index: number) => (
-                <Dot
-                  ctx={state.imgCtx?.ctx}
-                  key={item.toString()}
-                  event={eventRef.current}
-                  wrapperSize={state.dotWrapperSize}
-                  depth={1}
-                  maxDepth={state.maxDepth}
-                />
-              ))}
+            {state.initDotsCount.map((item: any, index: number) => (
+              <Dot
+                ctx={state.imgCtx.ctx}
+                key={item.toString()}
+                event={eventRef.current}
+                wrapperSize={state.dotWrapperSize}
+                depth={1}
+                maxDepth={state.maxDepth}
+              />
+            ))}
           </div>
         </div>
       </div>

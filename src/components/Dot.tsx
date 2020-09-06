@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
+
   const onEvent = useCallback(() => {
     // element what has dot class remove dot class then add wrapper class
     dotRef.current?.classList.remove("dot");
@@ -12,24 +13,28 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
 
   useEffect(() => {
     const target = dotRef.current;
-    if (depth === maxDepth && target?.classList.contains("wrapper")) {
-      setDots([]);
-      target.classList.add("dot");
-      target.classList.remove("wrapper");
-    }
-    if (target && target.classList.contains("dot") && depth < maxDepth) {
+    const status = target?.classList.contains("dot");
+    if (target && status && depth < maxDepth) {
       target.addEventListener("mouseenter", onEvent, { once: true });
       target.addEventListener("division", onEvent, { once: true });
     }
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      const target = dotRef.current;
-      if (target && target.classList.contains("dot") && depth < maxDepth) {
+      if (target && status && depth < maxDepth) {
         target.removeEventListener("mouseenter", onEvent);
         target.removeEventListener("division", onEvent);
       }
     };
   }, [onEvent, depth, maxDepth]);
+
+  useEffect(() => {
+    const target = dotRef.current;
+    if (depth === maxDepth && target?.classList.contains("wrapper")) {
+      setDots([]);
+      target.classList.add("dot");
+      target.classList.remove("wrapper");
+    }
+  }, [depth, maxDepth]);
 
   useEffect(() => {
     // init dot setting
