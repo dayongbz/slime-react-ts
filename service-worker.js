@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/slime-react-ts/precache-manifest.17f77278d11bdfc191693f665c9356a6.js"
+  "/slime-react-ts/precache-manifest.e9547c7545461d8b5eec1172b6d2a794.js"
 );
 
 self.addEventListener('message', (event) => {
