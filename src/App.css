@@ -142,6 +142,7 @@ canvas {
   z-index: 10;
   font-weight: bold;
   font-size: 1rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .profile .background {
@@ -153,10 +154,11 @@ canvas {
   background-size: cover;
   background-position: center;
   filter: brightness(0.5);
-  transition: width 0.3s, height 0.3s;
+  transition: width 0.3s, height 0.3s, filter 0.3s;
 }
 
 .profile:hover .background {
+  filter: brightness(1);
   width: 150%;
   height: 150%;
 }
