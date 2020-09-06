@@ -19,7 +19,7 @@
       "kwoneunbi": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
       "sakura": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
       "kanghyewon": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
-      "choiyena": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
+      "choiyena": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.png"],
       "leechaeyeon": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
       "kimchaewon": [
         "0.jpg",
@@ -37,7 +37,7 @@
       "hitomi": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
       "joyuri": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
       "anyujin": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"],
-      "jangwonyoung": ["0.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"]
+      "jangwonyoung": ["0.jpg", "1.jpg", "2.jpg", "3.jpeg", "4.jpg", "5.jpg"]
     }
   }
 }
