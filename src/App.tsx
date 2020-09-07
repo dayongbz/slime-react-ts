@@ -1,4 +1,4 @@
-import React, { useRef, memo, useEffect, useReducer } from "react";
+import React, { useRef, memo, useEffect, useReducer, useCallback } from "react";
 import "./reset.css";
 import "./App.css";
 import Dot from "./components/Dot";
@@ -19,7 +19,7 @@ const App = memo(() => {
   const eventRef = useRef<Event>(new CustomEvent("division"));
   const timeRef = useRef<any>(0);
 
-  const setDotWrapper = (width: number, height: number) => {
+  const setDotWrapper = useCallback((width: number, height: number) => {
     // set dot-wrapper size
     if (dotWrapperRef.current && dotSubWrapperRef.current) {
       const dotWrapper = dotWrapperRef.current;
@@ -34,9 +34,9 @@ const App = memo(() => {
         size: [width, height],
       });
     }
-  };
+  }, []);
 
-  const makeInitDots = (dotsCount: number) => {
+  const makeInitDots = useCallback((dotsCount: number) => {
     // set initial dots
     const initDotsCount = [];
     for (let i = 0; i < dotsCount; i++) {
@@ -46,9 +46,9 @@ const App = memo(() => {
       type: "SET_INIT_DOTS_COUNT",
       initDotsCount,
     });
-  };
+  }, []);
 
-  const onReSize = () => {
+  const onReSize = useCallback(() => {
     // when window resies, set screen size state
     dispatch({
       type: "SET_SCREEN_SIZE",
@@ -57,9 +57,9 @@ const App = memo(() => {
         document.documentElement.clientHeight,
       ],
     });
-  };
+  }, []);
 
-  const onTouchMove = (e: any) => {
+  const onTouchMove = useCallback((e: any) => {
     // when touches move, dispatch event
     const dots = [];
     for (let i = 0; i < e.touches.length; i++) {
@@ -73,7 +73,16 @@ const App = memo(() => {
         dot.dispatchEvent(eventRef.current);
       }
     }
-  };
+  }, []);
+
+  const onMouseMove = useCallback((e: any) => {
+    const dot = document.elementFromPoint(e.clientX, e.clientY);
+    if (dot && dot.classList.contains("dot")) {
+      dot.dispatchEvent(eventRef.current);
+    }
+  }, []);
+
+  const getWidthHeightCB = useCallback(getWidthHeight, []);
 
   useEffect(() => {
     // set max depth state
@@ -88,12 +97,18 @@ const App = memo(() => {
     // call setDotWrapper and makeInitDots for setting dot wrapper size state and initital dots count
     if (state.imgCtx) {
       const img = state.imgCtx.img;
-      const size = getWidthHeight(img, state.screenSize);
+      const size = getWidthHeightCB(img, state.screenSize);
       const dotsCount = getDotsCount(size, size.width / 2);
       setDotWrapper(size.width, size.height);
       makeInitDots(dotsCount);
     }
-  }, [state.screenSize, state.imgCtx]);
+  }, [
+    state.screenSize,
+    state.imgCtx,
+    getWidthHeightCB,
+    setDotWrapper,
+    makeInitDots,
+  ]);
 
   useEffect(() => {
     // when click profile, rest profile wrapper scrollbar
@@ -109,7 +124,8 @@ const App = memo(() => {
     };
     window.addEventListener("resize", onReSizeDelay);
     window.addEventListener("touchmove", onTouchMove);
-  }, []);
+    window.addEventListener("mousemove", onMouseMove);
+  }, [onMouseMove, onReSize, onTouchMove]);
 
   return (
     <>
@@ -135,7 +151,7 @@ const App = memo(() => {
       >
         <div ref={dotWrapperRef} id="dot-wrapper">
           <div ref={dotSubWrapperRef} id="dot-subwrapper">
-            {state.initDotsCount.map((item: any, index: number) => (
+            {state.initDotsCount.map((item: any) => (
               <Dot
                 ctx={state.imgCtx.ctx}
                 key={item.toString()}

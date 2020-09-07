@@ -4,25 +4,34 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   const [dots, setDots] = useState<Array<any>>([]);
   const dotRef = useRef<HTMLDivElement>(null);
 
-  const onEvent = useCallback(() => {
+  const onEvent = useCallback((e: any) => {
     // element what has dot class remove dot class then add wrapper class
-    dotRef.current?.classList.remove("dot");
-    dotRef.current?.classList.add("wrapper");
+    e.target.classList.remove("dot");
+    e.target.classList.add("wrapper");
     setDots([1, 2, 3, 4]);
   }, []);
+
+  const getCoord = useCallback(
+    (element: any): any => {
+      let x = element.offsetLeft + element.offsetWidth / 2,
+        y = element.offsetTop + element.offsetHeight / 2;
+      x = x < 0 ? 0 : x >= wrapperSize[0] ? wrapperSize[0] - 1 : x;
+      y = y < 0 ? 0 : y >= wrapperSize[1] ? wrapperSize[1] - 1 : y;
+      return [x, y];
+    },
+    [wrapperSize]
+  );
 
   useEffect(() => {
     // add eventlistener
     const target = dotRef.current;
     const status = target?.classList.contains("dot");
     if (target && status && depth < maxDepth) {
-      target.addEventListener("mouseenter", onEvent, { once: true });
       target.addEventListener("division", onEvent, { once: true });
     }
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       if (target && status && depth < maxDepth) {
-        target.removeEventListener("mouseenter", onEvent);
         target.removeEventListener("division", onEvent);
       }
     };
@@ -41,20 +50,15 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   useEffect(() => {
     // init dot setting
     if (
-      dotRef.current &&
-      dotRef.current.classList.contains("dot") &&
-      ctx &&
-      wrapperSize
+      dotRef.current?.classList.contains("dot") &&
+      !dotRef.current.classList.contains("wrapper")
     ) {
       const dot = dotRef.current;
-      let x = dot.offsetLeft + dot.offsetWidth / 2,
-        y = dot.offsetTop + dot.offsetHeight / 2;
-      x = x < 0 ? 0 : x >= wrapperSize[0] ? wrapperSize[0] - 1 : x;
-      y = y < 0 ? 0 : y >= wrapperSize[1] ? wrapperSize[1] - 1 : y;
-      const colorData = ctx.getImageData(x, y, 1, 1).data;
+      const coord = getCoord(dot);
+      const colorData = ctx.getImageData(coord[0], coord[1], 1, 1).data;
       dot.style.backgroundColor = `rgb(${colorData[0]},${colorData[1]},${colorData[2]})`;
     }
-  }, [ctx, wrapperSize]);
+  }, [ctx, getCoord]);
 
   return (
     <div ref={dotRef} className="dot">
