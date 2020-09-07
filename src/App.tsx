@@ -100,6 +100,7 @@ const App = memo(() => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const dotWrapperRef = useRef<HTMLDivElement>(null);
   const dotSubWrapperRef = useRef<HTMLDivElement>(null);
+  const profileWrapperRef = useRef<HTMLDivElement>(null);
   const eventRef = useRef<Event>(new CustomEvent("division"));
   const timeRef = useRef<any>(0);
 
@@ -176,6 +177,10 @@ const App = memo(() => {
   }, [state.screenSize, state.imgCtx]);
 
   useEffect(() => {
+    profileWrapperRef.current?.scrollTo(0, 0);
+  }, [state.profile]);
+
+  useEffect(() => {
     // when document is loaded, set screenSize state at once
     onReSize();
     const onReSizeDelay = () => {
@@ -223,7 +228,7 @@ const App = memo(() => {
           </div>
         </div>
       </div>
-      <div id="profile-wrapper">
+      <div id="profile-wrapper" ref={profileWrapperRef}>
         <div id="profile-slide">
           {state.selectedProfile !== "home" && (
             <Profile

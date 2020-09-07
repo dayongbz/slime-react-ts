@@ -65,18 +65,6 @@
       __REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
     }
   </script>
-  <script>
-    //preload img
-    const images = [];
-    const preload = (imgs) => {
-      for (let i = 0; i <= imgs.length; i++) {
-        images[i] = new Image()
-        images[i].src = imgs[i]
-      }
-    }
-    const preloadImg = ["./img/izone/group/0.jpg"]
-    preload(preloadImg)
-  </script>
 </body>
 
 </html>
