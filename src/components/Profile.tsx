@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 
 const Profile = memo(
-  ({ name, dispatch, type, group, img, sub, depth, selected, imgs }: any) => {
+  ({ name, dispatch, type, group, img, sub, depth, selected }: any) => {
     const [loaded, setLoaded] = useState(false);
 
-    const onClick = (e: any) => {
+    const onClick = () => {
       if (type === "home") {
         dispatch({ type: "SET_SELECTED_PROFILE", select: "group" });
         dispatch({ type: "SET_PROFILE", status: group });
@@ -86,8 +86,20 @@ const Profile = memo(
         ) : loaded ? (
           <div
             onClick={onClick}
-            className={type === "home" ? "profile group" : "profile"}
+            className={
+              type === "home"
+                ? "profile group"
+                : selected
+                ? "profile selected"
+                : "profile"
+            }
           >
+            {selected && (
+              <>
+                <div className="icon"></div>
+                <p className="selectedText">selected</p>
+              </>
+            )}
             <div
               className="background"
               style={
@@ -98,7 +110,7 @@ const Profile = memo(
                   : { backgroundImage: `url(./img/${group}/${name}/${img})` }
               }
             ></div>
-            <p className="sub">{sub}</p>
+            {sub && <p className="sub">{sub}</p>}
           </div>
         ) : (
           <div className="profile loading">

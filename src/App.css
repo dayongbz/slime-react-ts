@@ -137,6 +137,7 @@ canvas {
 .profile.group:hover {
   animation-play-state: paused;
 }
+
 .profile .sub {
   color: #ecf0f1;
   z-index: 10;
@@ -155,6 +156,10 @@ canvas {
   background-position: center;
   filter: brightness(0.5);
   transition: width 0.3s, height 0.3s, filter 0.3s;
+}
+
+.profile.selected .background {
+  filter: brightness(1);
 }
 
 .profile:hover .background {
@@ -176,6 +181,39 @@ canvas {
   width: 80%;
   height: 80%;
   animation: loading 3s linear 0s infinite reverse both;
+}
+
+.profile .icon {
+  width: 10px;
+  height: 10px;
+  background-color: #27ae60;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 10;
+}
+
+.profile.selected:hover .selectedText {
+  display: inline-block;
+}
+
+.profile.selected:hover .icon {
+  display: none;
+}
+
+.profile .selectedText {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  border-radius: 10px;
+  bottom: 3px;
+  right: 3px;
+  z-index: 10;
+  padding: 3px 7px;
+  font-size: 0.5rem;
+  color: #2ecc71;
+  font-weight: bold;
 }
 
 #modal-popup-wrapper {
