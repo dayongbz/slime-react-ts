@@ -12,6 +12,7 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   }, []);
 
   useEffect(() => {
+    // add eventlistener
     const target = dotRef.current;
     const status = target?.classList.contains("dot");
     if (target && status && depth < maxDepth) {
@@ -28,8 +29,9 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
   }, [onEvent, depth, maxDepth]);
 
   useEffect(() => {
+    // if depth is bigger than maxDepth then reset Dots components
     const target = dotRef.current;
-    if (depth === maxDepth && target?.classList.contains("wrapper")) {
+    if (depth >= maxDepth && target?.classList.contains("wrapper")) {
       setDots([]);
       target.classList.add("dot");
       target.classList.remove("wrapper");

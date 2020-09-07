@@ -20,6 +20,7 @@ const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
   };
 
   const onLoad = (e: any) => {
+    // when img element loaded, dispatch Img ctx arr state.
     if (canvasRef.current && e.target) {
       const canvas = canvasRef.current as HTMLCanvasElement;
       const imgT = e.target;
@@ -35,6 +36,7 @@ const CanvasImg = memo(({ name, group, img, screenSize, dispatch }: any) => {
   };
 
   useEffect(() => {
+    // dispatch Img ctx arr state.
     if (canvasRef.current && imgRef.current) {
       const canvas = canvasRef.current as HTMLCanvasElement;
       const imgT = imgRef.current;

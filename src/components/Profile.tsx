@@ -46,9 +46,6 @@ const Profile = memo(
     const onClickPrev = () => {
       dispatch({ type: "PREV_PROFILE" });
       switch (depth) {
-        case 3:
-          dispatch({ type: "SET_SELECTED_PROFILE", select: "group" });
-          break;
         case 2:
           dispatch({ type: "SET_SELECTED_PROFILE", select: "group" });
           break;
@@ -62,6 +59,7 @@ const Profile = memo(
     };
 
     useEffect(() => {
+      // Before loading show loading bar.
       const imgLoad = new Image();
       imgLoad.onload = function () {
         setLoaded(true);

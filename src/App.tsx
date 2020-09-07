@@ -8,93 +8,8 @@ import getDotsCount from "./tools/getDotsCount";
 import ModalPopup from "./components/ModalPopup";
 import CanvasImg from "./components/CanvasImg";
 import Profile from "./components/Profile";
-
-import groupData from "./data/group.json";
-
-const initialState = {
-  name: "group",
-  dataJson: groupData as { [index: string]: any },
-  group: "izone",
-  img: "0.jpg",
-  selectedProfile: "home",
-  profile: [],
-  selectedImg: [{ group: "izone", name: "group", img: "0.jpg" }],
-  imgCtx: null,
-  imgCtxArr: [],
-  screenSize: [],
-  dotWrapperSize: [],
-  initDotsCount: [],
-  modalPopup: [],
-  maxDepth: 6,
-};
-
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "SET_PROFILE":
-      return { ...state, profile: [...state.profile, action.status] };
-    case "PREV_PROFILE":
-      return { ...state, profile: [...state.profile.slice(0, -1)] };
-    case "SET_NAME":
-      return { ...state, name: action.name };
-    case "SET_GROUP":
-      return { ...state, group: action.group };
-    case "SET_IMG":
-      return { ...state, img: action.img };
-    case "SET_IMG_CTX_ARR":
-      return {
-        ...state,
-        imgCtx: { ctx: action.ctx, img: action.img },
-        imgCtxARR: {
-          ...state.imgCtx,
-          [action.name]: { ctx: action.ctx, img: action.img },
-        },
-      };
-    case "SET_SCREEN_SIZE":
-      return { ...state, screenSize: [...action.size] };
-    case "SET_DOT_WRAPPER_SIZE":
-      return { ...state, dotWrapperSize: [...action.size] };
-    case "SET_INIT_DOTS_COUNT":
-      return { ...state, initDotsCount: [...action.initDotsCount] };
-    case "SET_MODAL_POPUP":
-      return {
-        ...state,
-        modalPopup: [...state.modalPopup, { ...action.modalPopup }],
-      };
-    case "CANCEL_MODAL_POPUP":
-      return {
-        ...state,
-        modalPopup: [...state.modalPopup.slice(1)],
-      };
-    case "OK_MODAL_POPUP":
-      for (let i = 0; i < state.modalPopup[0].functions.length; i++) {
-        state.modalPopup[0].functions[i](state.modalPopup[0].args[i]);
-      }
-      return {
-        ...state,
-        modalPopup: [...state.modalPopup.slice(1)],
-      };
-    case "ADD_SELECTED_IMG":
-      return {
-        ...state,
-        selectedImg: [
-          ...state.selectedImg,
-          { name: action.name, group: action.group, img: action.img },
-        ],
-      };
-    case "SET_MAX_DEPTH":
-      return {
-        ...state,
-        maxDepth: action.depth,
-      };
-    case "SET_SELECTED_PROFILE":
-      return {
-        ...state,
-        selectedProfile: action.select,
-      };
-    default:
-      return state;
-  }
-};
+import initialState from "./reducer/state";
+import reducer from "./reducer/reducer";
 
 const App = memo(() => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -104,24 +19,25 @@ const App = memo(() => {
   const eventRef = useRef<Event>(new CustomEvent("division"));
   const timeRef = useRef<any>(0);
 
-  const setDotWrapper = (imgWidth: number, imgHeight: number) => {
+  const setDotWrapper = (width: number, height: number) => {
     // set dot-wrapper size
     if (dotWrapperRef.current && dotSubWrapperRef.current) {
       const dotWrapper = dotWrapperRef.current;
       const dotSubWrapper = dotSubWrapperRef.current;
-      dotWrapper.style.width = `${imgWidth}px`;
-      dotWrapper.style.height = `${imgHeight}px`;
+      dotWrapper.style.width = `${width}px`;
+      dotWrapper.style.height = `${height}px`;
 
-      dotSubWrapper.style.width = `${imgWidth}px`;
-      dotSubWrapper.style.height = `${imgWidth}px`;
+      dotSubWrapper.style.width = `${width}px`;
+      dotSubWrapper.style.height = `${width}px`;
       dispatch({
         type: "SET_DOT_WRAPPER_SIZE",
-        size: [imgWidth, imgHeight],
+        size: [width, height],
       });
     }
   };
 
   const makeInitDots = (dotsCount: number) => {
+    // set initial dots
     const initDotsCount = [];
     for (let i = 0; i < dotsCount; i++) {
       initDotsCount.push(i);
@@ -133,6 +49,7 @@ const App = memo(() => {
   };
 
   const onReSize = () => {
+    // when window resies, set screen size state
     dispatch({
       type: "SET_SCREEN_SIZE",
       size: [
@@ -143,6 +60,7 @@ const App = memo(() => {
   };
 
   const onTouchMove = (e: any) => {
+    // when touches move, dispatch event
     const dots = [];
     for (let i = 0; i < e.touches.length; i++) {
       dots.push(
@@ -153,20 +71,21 @@ const App = memo(() => {
       const dot = dots[i];
       if (dot && dot.classList.contains("dot")) {
         dot.dispatchEvent(eventRef.current);
-        dot.classList.add("hello");
       }
     }
   };
 
   useEffect(() => {
-    if (state.screenSize[0] < 600) {
+    // set max depth state
+    if (state.dotWrapperSize[0] < 600) {
       dispatch({ type: "SET_MAX_DEPTH", depth: 6 });
-    } else if (state.screenSize[0] >= 600) {
+    } else if (state.dotWrapperSize[0] >= 600) {
       dispatch({ type: "SET_MAX_DEPTH", depth: 7 });
     }
-  }, [state.screenSize]);
+  }, [state.dotWrapperSize]);
 
   useEffect(() => {
+    // call setDotWrapper and makeInitDots for setting dot wrapper size state and initital dots count
     if (state.imgCtx) {
       const img = state.imgCtx.img;
       const size = getWidthHeight(img, state.screenSize);
@@ -177,6 +96,7 @@ const App = memo(() => {
   }, [state.screenSize, state.imgCtx]);
 
   useEffect(() => {
+    // when click profile, rest profile wrapper scrollbar
     profileWrapperRef.current?.scrollTo(0, 0);
   }, [state.profile]);
 
@@ -209,7 +129,7 @@ const App = memo(() => {
         id="main-wrapper"
         style={{
           height: `${
-            state.screenSize[1] - (state.screenSize[0] > 600 ? 125 : 80)
+            state.screenSize[1] - (state.screenSize[0] > 600 ? 125 : 80) // set main wrapper height
           }px`,
         }}
       >
@@ -230,7 +150,7 @@ const App = memo(() => {
       </div>
       <div id="profile-wrapper" ref={profileWrapperRef}>
         <div id="profile-slide">
-          {state.selectedProfile !== "home" && (
+          {state.selectedProfile !== "home" && ( // If selectedProfile state is not home then profile-slide has prev button
             <Profile
               type="prev"
               dispatch={dispatch}
@@ -238,7 +158,9 @@ const App = memo(() => {
             />
           )}
           {state.selectedProfile === "home"
-            ? state.dataJson.names.map((item: any) => (
+            ? state.dataJson.names.map((
+                item: any // If selectedprofile state is home then Profile component show group icon
+              ) => (
                 <Profile
                   group={item}
                   key={item}
@@ -248,7 +170,9 @@ const App = memo(() => {
                 ></Profile>
               ))
             : state.selectedProfile === "group"
-            ? state.dataJson[state.profile[0]].member.map((item: any) => (
+            ? state.dataJson[state.profile[0]].member.map((
+                item: any // If selectedprofile state is group then Profile component show member icon
+              ) => (
                 <Profile
                   group={state.profile[0]}
                   name={item}
@@ -259,29 +183,32 @@ const App = memo(() => {
                   sub={item}
                 />
               ))
-            : state.dataJson[state.profile[0]].imgs[
-                state.profile[1]
-              ].map((item: any) => (
-                <Profile
-                  name={state.profile[1]}
-                  img={item}
-                  group={state.profile[0]}
-                  key={item}
-                  type={"member"}
-                  selected={
-                    state.selectedImg[state.selectedImg.length - 1].name ===
-                      state.profile[1] &&
-                    state.selectedImg[state.selectedImg.length - 1].group ===
-                      state.profile[0] &&
-                    state.selectedImg[state.selectedImg.length - 1].img === item
-                  }
-                  dispatch={dispatch}
-                />
-              ))}
+            : state.dataJson[state.profile[0]].imgs[state.profile[1]] // If selectedprofile state is member then Profile component show person img
+                .map((item: any) => (
+                  <Profile
+                    name={state.profile[1]}
+                    img={item}
+                    group={state.profile[0]}
+                    key={item}
+                    type={"member"}
+                    selected={
+                      state.selectedImg[state.selectedImg.length - 1].name ===
+                        state.profile[1] &&
+                      state.selectedImg[state.selectedImg.length - 1].group ===
+                        state.profile[0] &&
+                      state.selectedImg[state.selectedImg.length - 1].img ===
+                        item
+                    }
+                    dispatch={dispatch}
+                  />
+                ))}
         </div>
       </div>
       {state.modalPopup
-        ? state.modalPopup.map((item: any, index: any) => (
+        ? state.modalPopup.map((
+            item: any,
+            index: any // If modalPopup has value then show ModalPopup component
+          ) => (
             <ModalPopup
               title={item.title}
               description={item.description}
