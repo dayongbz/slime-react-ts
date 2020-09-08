@@ -31,9 +31,7 @@ const Dot = memo(({ ctx, wrapperSize, event, depth, maxDepth }: any) => {
     }
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      if (target && status && depth < maxDepth) {
-        target.removeEventListener("division", onEvent);
-      }
+      target?.removeEventListener("division", onEvent);
     };
   }, [onEvent, depth, maxDepth]);
 
