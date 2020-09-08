@@ -2,7 +2,7 @@
   "name": "slime-react-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/slime-react-ts",
+  "homepagse": "/slime-react-ts",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

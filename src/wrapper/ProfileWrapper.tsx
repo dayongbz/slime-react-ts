@@ -7,7 +7,9 @@ const ProfileWrapper = memo(
 
     useEffect(() => {
       // when click profile, rest profile wrapper scrollbar
-      profileWrapperRef.current?.scrollTo(0, 0);
+      if (profileWrapperRef.current?.scrollTo) {
+        profileWrapperRef.current?.scrollTo(0, 0);
+      }
     }, [profile]);
 
     return (
